@@ -20,6 +20,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Define plugin name constant
+define( 'PLUGIN_NAME', 'getdave-responsive-nav-block-variations' );
+
 /**
  * Initialize the plugin.
  */
@@ -38,7 +41,7 @@ function register_assets() {
 		$assets = include $asset_file;
 
 		wp_register_script(
-			'getdave-responsive-nav-block-variations-script',
+			PLUGIN_NAME . '-script',
 			plugins_url( 'build/index.js', __FILE__ ),
 			$assets['dependencies'],
 			$assets['version']
@@ -47,7 +50,7 @@ function register_assets() {
 		wp_enqueue_block_style(
 			'core/navigation',
 			array(
-				'handle' => 'getdave-responsive-nav-block-variations-style',
+				'handle' => PLUGIN_NAME . '-style',
 				'src'    => plugins_url( 'build/style-index.css', __FILE__ ),
 				// Allow Themes to opt into inlining the style.
 				// See https://developer.wordpress.org/reference/functions/wp_enqueue_block_style/#parameters.
@@ -63,19 +66,19 @@ function register_assets() {
  */
 function enqueue_block_editor_assets() {
 	wp_enqueue_script(
-		'getdave-responsive-nav-block-variations-script',
+		PLUGIN_NAME . '-script',
 	);
 
 	// Inline variables for access in JavaScript.
 	$inline_variables = array(
 		'classNames' => array(
-			'mobile'  => 'getdave-responsive-nav-block-variations-mobile',
-			'desktop' => 'getdave-responsive-nav-block-variations-desktop',
+			'mobile'  => PLUGIN_NAME . '-mobile',
+			'desktop' => PLUGIN_NAME . '-desktop',
 		),
 	);
 
 	wp_localize_script(
-		'getdave-responsive-nav-block-variations-script',
+		PLUGIN_NAME . '-script',
 		'getdaveResponsiveNavBlockVariations',
 		$inline_variables
 	);
