@@ -16,9 +16,10 @@
 
 namespace GetDave\ResponsiveNavBlockVariations;
 
-
-init();
-
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 function init() {
     add_action( 'init', __NAMESPACE__ . '\register_assets' );
@@ -56,8 +57,6 @@ function register_assets() {
     }
 }
 
-
-
 /**
  * Enqueue the editor assets.
  */
@@ -65,4 +64,20 @@ function enqueue_block_editor_assets() {
     wp_enqueue_script(
         'getdave-responsive-nav-block-variations-script',
     );
+
+    // Inline variables for access in JavaScript.
+    $inline_variables = array(
+        'classNames' => array(
+            'mobile' => 'is-style-getdave-navigation-mobile',
+            'desktop' => 'is-style-getdave-navigation-desktop',
+        ),
+    );
+
+    wp_localize_script(
+        'getdave-responsive-nav-block-variations-script',
+        'getdaveResponsiveNavBlockVariations',
+        $inline_variables
+    );
 }
+
+init();

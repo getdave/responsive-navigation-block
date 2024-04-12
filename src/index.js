@@ -2,19 +2,22 @@ import "./style.scss";
 
 import { registerBlockVariation } from "@wordpress/blocks";
 
+// Data inlined from PHP.
+const { mobile: mobileClassName, desktop: desktopClassName } =
+  getdaveResponsiveNavBlockVariations.classNames;
+
 registerBlockVariation("core/navigation", {
   name: "getdave-navigation-desktop",
   title: "Desktop Navigation",
   description: "Navigation block preconfigured for larger viewports.",
   attributes: {
     overlayMenu: "never",
-    className: "is-style-getdave-navigation-desktop",
+    className: desktopClassName,
   },
-  isActive: function (blockAttributes, variationAttributes) {
+  isActive: function (blockAttributes) {
     return (
-      blockAttributes.className?.includes(
-        "is-style-getdave-navigation-desktop"
-      ) && blockAttributes.overlayMenu === "never"
+      blockAttributes.className?.includes(desktopClassName) &&
+      blockAttributes.overlayMenu === "never"
     );
   },
 });
@@ -25,13 +28,12 @@ registerBlockVariation("core/navigation", {
   description: "Navigation block preconfigured for smaller viewports.",
   attributes: {
     overlayMenu: "always",
-    className: "is-style-getdave-navigation-mobile",
+    className: mobileClassName,
   },
-  isActive: function (blockAttributes, variationAttributes) {
+  isActive: function (blockAttributes) {
     return (
-      blockAttributes.className?.includes(
-        "is-style-getdave-navigation-mobile"
-      ) && blockAttributes.overlayMenu === "always"
+      blockAttributes.className?.includes(mobileClassName) &&
+      blockAttributes.overlayMenu === "always"
     );
   },
 });
