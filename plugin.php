@@ -23,7 +23,6 @@ init();
 function init() {
     add_action( 'init', __NAMESPACE__ . '\register_assets' );
     add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_editor_assets' );
-    add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_front_of_site_assets' );
 }
 
 /**
@@ -43,23 +42,21 @@ function register_assets() {
             $assets['version']
         );
 
-        wp_register_style(
-            'getdave-responsive-nav-block-variations-style',
-            plugins_url( 'build/style-index.css', __FILE__ ),
-            array(),
-            $assets['version']
+        wp_enqueue_block_style(
+            'core/navigation',
+            array(
+                'handle' => 'getdave-responsive-nav-block-variations-style',
+                'src' => plugins_url( 'build/style-index.css', __FILE__ ),
+                // Allow Themes to opt into inlining the style.
+                // See https://developer.wordpress.org/reference/functions/wp_enqueue_block_style/#parameters.
+                'path' => plugin_dir_path( __FILE__ ) . 'build/style-index.css',
+                $assets['version']
+            )
         );
     }
 }
 
-/**
- * Enqueue the front of site assets.
- */
-function enqueue_front_of_site_assets() {
-    wp_enqueue_style(
-        'getdave-responsive-nav-block-variations-style',
-    );
-}
+
 
 /**
  * Enqueue the editor assets.
@@ -67,9 +64,5 @@ function enqueue_front_of_site_assets() {
 function enqueue_block_editor_assets() {
     wp_enqueue_script(
         'getdave-responsive-nav-block-variations-script',
-    );
-
-    wp_enqueue_style(
-        'getdave-responsive-nav-block-variations-style',
     );
 }
