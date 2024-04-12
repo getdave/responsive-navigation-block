@@ -22,8 +22,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Define plugin name constant
 define( 'PLUGIN_NAME', 'getdave-responsive-nav-block-variations' );
-define( 'BREAKPOINT', 782 );
-
+define( 'DEFAULT_BREAKPOINT', 782 );
+define( 'DEFAULT_UNIT', 'px' );
 
 /**
  * Initialize the plugin.
@@ -32,9 +32,9 @@ function init() {
 	add_action( 'init', __NAMESPACE__ . '\register_assets' );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_editor_assets' );
 	add_action( 'enqueue_block_assets', __NAMESPACE__ . '\enqueue_block_assets' );
+	add_action( 'admin_init', __NAMESPACE__ . '\register_settings' );
+	add_action( 'admin_menu', __NAMESPACE__ . '\add_settings_page' );
 }
-
-
 
 /**
  * Register the assets.
@@ -85,15 +85,15 @@ function enqueue_block_editor_assets() {
  *
  * @return string
  */
-function generate_block_breakpoints_css( $breakpoint ) {
+function generate_block_breakpoints_css( $breakpoint, $unit ) {
 	return '
-        @media (min-width: ' . $breakpoint . 'px) {
+        @media (min-width: ' . $breakpoint . $unit . ') {
             .wp-block-navigation.getdave-responsive-nav-block-variations-mobile {
                 display: none;
             }
         }
 
-        @media (max-width: ' . ( $breakpoint - 1 ) . 'px) {
+        @media (max-width: ' . ( $breakpoint - 1 ) . $unit . ') {
             .wp-block-navigation.getdave-responsive-nav-block-variations-desktop {
                 display: none;
             }
@@ -103,13 +103,107 @@ function generate_block_breakpoints_css( $breakpoint ) {
 
 function enqueue_block_assets() {
 
-    $breakpoint = BREAKPOINT;
-	$css = generate_block_breakpoints_css( $breakpoint );
+	$breakpoint = get_option( PLUGIN_NAME . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
+	$unit       = get_option( PLUGIN_NAME . '_responsive_nav_unit', DEFAULT_UNIT );
+	$css        = generate_block_breakpoints_css( $breakpoint, $unit );
 
 	// Create a fake stylesheet to allow for inlining the CSS rules.
 	wp_register_style( PLUGIN_NAME . '-style', false );
 	wp_enqueue_style( PLUGIN_NAME . '-style' );
 	wp_add_inline_style( PLUGIN_NAME . '-style', $css );
+}
+
+function add_settings_page() {
+	add_options_page(
+		__( 'Responsive Navigation Settings', 'getdave-responsive-nav-block-variations' ), // Page title
+		__( 'Responsive Navigation', 'getdave-responsive-nav-block-variations' ), // Menu title
+		'manage_options', // Capability
+		PLUGIN_NAME . '_responsive_nav', // Menu slug
+		__NAMESPACE__ . '\settings_page_callback' // Callback function
+	);
+}
+
+function settings_page_callback() {
+	?>
+	<div class="wrap">
+		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<form action="options.php" method="post">
+			<?php
+			settings_fields( 'reading' );
+			do_settings_sections( PLUGIN_NAME . '_responsive_nav' );
+			submit_button( __( 'Save Settings', 'getdave-responsive-nav-block-variations' ) );
+			?>
+		</form>
+	</div>
+	<?php
+}
+
+function register_settings() {
+	register_setting(
+		'reading',
+		PLUGIN_NAME . '_responsive_nav_breakpoint',
+		array(
+			'type'              => 'integer',
+			'description'       => __( 'The breakpoint at which the navigation will switch to mobile view', 'getdave-responsive-nav-block-variations' ),
+			'sanitize_callback' => 'absint',
+			'default'           => DEFAULT_BREAKPOINT,
+		)
+	);
+
+	register_setting(
+		'reading',
+		PLUGIN_NAME . '_responsive_nav_unit',
+		array(
+			'type'              => 'string',
+			'description'       => __( 'The unit of the navigation breakpoint', 'getdave-responsive-nav-block-variations' ),
+			'sanitize_callback' => 'sanitize_text_field',
+			'default'           => DEFAULT_UNIT,
+		)
+	);
+
+	add_settings_section(
+		PLUGIN_NAME . '_responsive_nav_settings_section',
+		__( 'Responsive Navigation Settings', 'getdave-responsive-nav-block-variations' ),
+		__NAMESPACE__ . '\settings_section_callback',
+		PLUGIN_NAME . '_responsive_nav'
+	);
+
+	add_settings_field(
+		PLUGIN_NAME . '_responsive_nav_breakpoint',
+		__( 'Navigation Breakpoint', 'getdave-responsive-nav-block-variations' ),
+		__NAMESPACE__ . '\settings_field_callback',
+		PLUGIN_NAME . '_responsive_nav',
+		PLUGIN_NAME . '_responsive_nav_settings_section'
+	);
+
+	add_settings_field(
+		PLUGIN_NAME . '_responsive_nav_unit',
+		__( 'Navigation Breakpoint Unit', 'getdave-responsive-nav-block-variations' ),
+		__NAMESPACE__ . '\settings_field_unit_callback',
+		PLUGIN_NAME . '_responsive_nav',
+		PLUGIN_NAME . '_responsive_nav_settings_section'
+	);
+}
+
+function settings_section_callback() {
+	echo '<p>' . __( 'Set the breakpoint and unit at which the navigation will switch to mobile view.', 'getdave-responsive-nav-block-variations' ) . '</p>';
+}
+
+function settings_field_callback() {
+	$breakpoint = get_option( PLUGIN_NAME . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
+	echo '<input type="number" name="' . PLUGIN_NAME . '_responsive_nav_breakpoint" value="' . esc_attr( $breakpoint ) . '" min="0">';
+}
+
+function settings_field_unit_callback() {
+	$unit = get_option( PLUGIN_NAME . '_responsive_nav_unit', DEFAULT_UNIT );
+	?>
+	<select id="<?php echo PLUGIN_NAME . '_responsive_nav_unit'; ?>" name="<?php echo PLUGIN_NAME . '_responsive_nav_unit'; ?>">
+		<option value="px" <?php selected( $unit, 'px' ); ?>>px</option>
+		<option value="em" <?php selected( $unit, 'em' ); ?>>em</option>
+		<option value="rem" <?php selected( $unit, 'rem' ); ?>>rem</option>
+		<option value="%" <?php selected( $unit, '%' ); ?>>%</option>
+	</select>
+	<?php
 }
 
 init();
