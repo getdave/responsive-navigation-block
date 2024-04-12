@@ -206,7 +206,7 @@ function settings_field_unit_callback() {
 		<option value="px" <?php selected( $unit, 'px' ); ?>>px</option>
 		<option value="em" <?php selected( $unit, 'em' ); ?>>em</option>
 		<option value="rem" <?php selected( $unit, 'rem' ); ?>>rem</option>
-		<option value="%" <?php selected( $unit, '%' ); ?>>%</option>
+		<option value="vw" <?php selected( $unit, 'vw' ); ?>>vw</option>
 	</select>
 	<?php
 }
