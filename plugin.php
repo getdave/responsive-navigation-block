@@ -191,7 +191,7 @@ function register_settings() {
 
 function settings_section_callback() {
 	echo '<p>' . __( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdave-responsive-nav-block-variations' ) . '</p>';
-    echo '<p>' . __( '<strong>⚠️ Please note</strong>: setting this value will have no effect on the <em>standard</em> Navigation block.', 'getdave-responsive-nav-block-variations' ) . '</p>';
+	echo '<p>' . __( '<strong>⚠️ Please note</strong>: setting this value will have no effect on the <em>standard</em> Navigation block.', 'getdave-responsive-nav-block-variations' ) . '</p>';
 }
 
 function settings_field_callback() {
@@ -209,6 +209,13 @@ function settings_field_unit_callback() {
 		<option value="%" <?php selected( $unit, '%' ); ?>>%</option>
 	</select>
 	<?php
+}
+
+register_uninstall_hook( __FILE__, 'uninstall_plugin' );
+
+function uninstall_plugin() {
+	delete_option( PLUGIN_NAME . '_responsive_nav_breakpoint' );
+	delete_option( PLUGIN_NAME . '_responsive_nav_unit' );
 }
 
 init();
