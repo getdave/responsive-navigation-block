@@ -3,13 +3,13 @@
 
 .wp-block-navigation {
     @media (min-width: 782px) {
-        &.is-style-getdave-navigation-mobile {
+        &.getdave-responsive-nav-block-variations-mobile {
             display: none;
         }
     }
 
     @media (max-width: 781px) {
-        &.is-style-getdave-navigation-desktop {
+        &.getdave-responsive-nav-block-variations-desktop {
             display: none;
         }
     }
