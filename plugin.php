@@ -97,7 +97,7 @@ function generate_block_breakpoints_css( $breakpoint, $unit ) {
             }
         }
 
-        @media (max-width: ' . ( $breakpoint - 1 ) . $unit . ') {
+        @media (max-width: calc(' . $breakpoint . $unit . ' - 1px)) {
             .wp-block-navigation.' . DESKTOP_NAV_CLASS . ' {
                 display: none;
             }
