@@ -20,10 +20,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// Define plugin name constant
+/**
+ * Constants.
+ */
 define( 'PLUGIN_NAME', 'getdave-responsive-nav-block-variations' );
 define( 'DEFAULT_BREAKPOINT', 782 );
 define( 'DEFAULT_UNIT', 'px' );
+define( 'MOBILE_NAV_CLASS', PLUGIN_NAME . '-is-mobile' );
+define( 'DESKTOP_NAV_CLASS', PLUGIN_NAME . '-is-desktop' );
 
 /**
  * Initialize the plugin.
@@ -66,8 +70,8 @@ function enqueue_block_editor_assets() {
 	// Inline variables for access in JavaScript.
 	$inline_variables = array(
 		'classNames' => array(
-			'mobile'  => PLUGIN_NAME . '-mobile',
-			'desktop' => PLUGIN_NAME . '-desktop',
+			'mobile'  => MOBILE_NAV_CLASS,
+			'desktop' => DESKTOP_NAV_CLASS,
 		),
 	);
 
@@ -88,13 +92,13 @@ function enqueue_block_editor_assets() {
 function generate_block_breakpoints_css( $breakpoint, $unit ) {
 	return '
         @media (min-width: ' . $breakpoint . $unit . ') {
-            .wp-block-navigation.getdave-responsive-nav-block-variations-mobile {
+            .wp-block-navigation.' . MOBILE_NAV_CLASS . ' {
                 display: none;
             }
         }
 
         @media (max-width: ' . ( $breakpoint - 1 ) . $unit . ') {
-            .wp-block-navigation.getdave-responsive-nav-block-variations-desktop {
+            .wp-block-navigation.' . DESKTOP_NAV_CLASS . ' {
                 display: none;
             }
         }
@@ -170,7 +174,7 @@ function register_settings() {
 
 	add_settings_field(
 		PLUGIN_NAME . '_responsive_nav_breakpoint',
-		__( 'Navigation Breakpoint', 'getdave-responsive-nav-block-variations' ),
+		__( 'Breakpoint', 'getdave-responsive-nav-block-variations' ),
 		__NAMESPACE__ . '\settings_field_callback',
 		PLUGIN_NAME . '_responsive_nav',
 		PLUGIN_NAME . '_responsive_nav_settings_section'
@@ -178,7 +182,7 @@ function register_settings() {
 
 	add_settings_field(
 		PLUGIN_NAME . '_responsive_nav_unit',
-		__( 'Navigation Breakpoint Unit', 'getdave-responsive-nav-block-variations' ),
+		__( 'Breakpoint Unit', 'getdave-responsive-nav-block-variations' ),
 		__NAMESPACE__ . '\settings_field_unit_callback',
 		PLUGIN_NAME . '_responsive_nav',
 		PLUGIN_NAME . '_responsive_nav_settings_section'
@@ -186,7 +190,8 @@ function register_settings() {
 }
 
 function settings_section_callback() {
-	echo '<p>' . __( 'Set the breakpoint and unit at which the navigation will switch to mobile view.', 'getdave-responsive-nav-block-variations' ) . '</p>';
+	echo '<p>' . __( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdave-responsive-nav-block-variations' ) . '</p>';
+    echo '<p>' . __( '<strong>⚠️ Please note</strong>: setting this value will have no effect on the <em>standard</em> Navigation block.', 'getdave-responsive-nav-block-variations' ) . '</p>';
 }
 
 function settings_field_callback() {
