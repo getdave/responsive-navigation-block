@@ -8,6 +8,7 @@ registerBlockVariation("core/navigation", {
   description: "Navigation block preconfigured for larger viewports.",
   attributes: {
     overlayMenu: "never",
+    className: "is-style-getdave-navigation-desktop",
   },
   isActive: function (blockAttributes, variationAttributes) {
     return (
@@ -24,6 +25,7 @@ registerBlockVariation("core/navigation", {
   description: "Navigation block preconfigured for smaller viewports.",
   attributes: {
     overlayMenu: "always",
+    className: "is-style-getdave-navigation-mobile",
   },
   isActive: function (blockAttributes, variationAttributes) {
     return (
