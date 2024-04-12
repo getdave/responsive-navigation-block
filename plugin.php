@@ -22,6 +22,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Define plugin name constant
 define( 'PLUGIN_NAME', 'getdave-responsive-nav-block-variations' );
+define( 'BREAKPOINT', 782 );
+
 
 /**
  * Initialize the plugin.
@@ -29,7 +31,10 @@ define( 'PLUGIN_NAME', 'getdave-responsive-nav-block-variations' );
 function init() {
 	add_action( 'init', __NAMESPACE__ . '\register_assets' );
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_block_editor_assets' );
+	add_action( 'enqueue_block_assets', __NAMESPACE__ . '\enqueue_block_assets' );
 }
+
+
 
 /**
  * Register the assets.
@@ -46,18 +51,6 @@ function register_assets() {
 			$assets['dependencies'],
 			$assets['version']
 		);
-
-		wp_enqueue_block_style(
-			'core/navigation',
-			array(
-				'handle' => PLUGIN_NAME . '-style',
-				'src'    => plugins_url( 'build/style-index.css', __FILE__ ),
-				// Allow Themes to opt into inlining the style.
-				// See https://developer.wordpress.org/reference/functions/wp_enqueue_block_style/#parameters.
-				'path'   => plugin_dir_path( __FILE__ ) . 'build/style-index.css',
-				$assets['version'],
-			)
-		);
 	}
 }
 
@@ -65,6 +58,7 @@ function register_assets() {
  * Enqueue the editor assets.
  */
 function enqueue_block_editor_assets() {
+
 	wp_enqueue_script(
 		PLUGIN_NAME . '-script',
 	);
@@ -78,10 +72,44 @@ function enqueue_block_editor_assets() {
 	);
 
 	wp_localize_script(
-		PLUGIN_NAME . '-script',
+		'getdave-responsive-nav-block-variations-script',
 		'getdaveResponsiveNavBlockVariations',
 		$inline_variables
 	);
+
+}
+
+/**
+ * Dynamically generate the CSS for the block breakpoints
+ * using the defined breakpoint.
+ *
+ * @return string
+ */
+function generate_block_breakpoints_css( $breakpoint ) {
+	return '
+        @media (min-width: ' . $breakpoint . 'px) {
+            .wp-block-navigation.getdave-responsive-nav-block-variations-mobile {
+                display: none;
+            }
+        }
+
+        @media (max-width: ' . ( $breakpoint - 1 ) . 'px) {
+            .wp-block-navigation.getdave-responsive-nav-block-variations-desktop {
+                display: none;
+            }
+        }
+    ';
+}
+
+function enqueue_block_assets() {
+
+    $breakpoint = BREAKPOINT;
+	$css = generate_block_breakpoints_css( $breakpoint );
+
+	// Create a fake stylesheet to allow for inlining the CSS rules.
+	wp_register_style( PLUGIN_NAME . '-style', false );
+	wp_enqueue_style( PLUGIN_NAME . '-style' );
+	wp_add_inline_style( PLUGIN_NAME . '-style', $css );
 }
 
 init();
