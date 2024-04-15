@@ -4,9 +4,10 @@ import { useEffect } from '@wordpress/element';
 import { store as editorStore } from '@wordpress/editor';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
+const { pluginName, classNames } = global.getdaveResponsiveNavBlockVariations;
+
 // Data inlined from PHP.
-const { mobile: mobileClassName } =
-	global.getdaveResponsiveNavBlockVariations.classNames;
+const { mobile: mobileClassName } = classNames;
 
 const MobileViewSwitcher = () => {
 	const selectedNavigationBlock = useSelect( ( select ) => {
@@ -52,4 +53,6 @@ const MobileViewSwitcher = () => {
 	return null;
 };
 
-registerPlugin( 'mobile-view-switcher', { render: MobileViewSwitcher } );
+registerPlugin( `${ pluginName }-mobile-view-switcher`, {
+	render: MobileViewSwitcher,
+} );
