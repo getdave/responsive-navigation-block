@@ -3,7 +3,6 @@ import { registerBlockVariation } from '@wordpress/blocks';
 
 // Local dependencies.
 import './mobile-view-switcher';
-import './style.scss';
 
 // Data inlined from PHP.
 const { pluginName, classNames } = global.getdaveResponsiveNavBlockVariations;
