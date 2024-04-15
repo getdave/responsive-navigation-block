@@ -10,11 +10,11 @@ Contributors: get_dave
 
 Complete control over your navigation menus based on screen size including styles and menu items.
 
-[![](https://img.shields.io/wordpress/plugin/installs/responsive-navigation-block?style=flat-square)](https://wordpress.org/plugins/responsive-navigation-block/)
-
 ## Description
 
 This Plugin allows you to display and apply alternative styling to different navigation menus based on the screen size using the WordPress Navigation block.
+
+[![](https://img.shields.io/wordpress/plugin/installs/responsive-navigation-block?style=flat-square)](https://wordpress.org/plugins/responsive-navigation-block/)
 
 ### Features
 

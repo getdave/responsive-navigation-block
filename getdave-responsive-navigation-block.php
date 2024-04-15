@@ -6,7 +6,7 @@
  * Requires PHP:      7.2
  * Version:           0.0.5
  * Author:            Dave Smith
- * License:           GPLv2
+ * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Text Domain:       getdave-responsive-navigation-block
  *
