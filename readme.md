@@ -2,7 +2,7 @@
 
 Stable tag: 0.0.5
 Tested up to: 6.5
-License: GPL v2 or later
+License: GPL-2.0-or-later
 Tags: navigation, menus, responsive, blocks
 Contributors: get_dave
 
