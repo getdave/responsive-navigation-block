@@ -8,7 +8,7 @@ Contributors: get_dave
 
 ![](.wordpress-org/banner-1544x500.png)
 
-Control your navigation menus based on screen size.
+Complete control over your navigation menus based on screen size including styles and menu items.
 
 [![](https://img.shields.io/wordpress/plugin/installs/responsive-navigation-block?style=flat-square)](https://wordpress.org/plugins/responsive-navigation-block/)
 
