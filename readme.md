@@ -47,7 +47,7 @@ Responsive Navigation does _not_:
 
 ## Frequently Asked Questions
 
-### Adjusting breakpoint
+### Can I adjust the breakpoint?
 
 By default, the "breakpoint" at which the mobile navigation will switch to show the desktop navigation is `782px`. This aligns with the default configuration of the built in Wordpress Navigation block. To change this you can:
 
