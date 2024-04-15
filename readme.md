@@ -25,10 +25,17 @@ This Plugin allows you to display and apply alternative styling to different nav
 
 ### Usage
 
--   Install and Activate the plugin - two new block variations will be registered for "Mobile" and "Desktop".
+This Plugin creates two block variations from the Navigation block which will be automatically hidden/shown at the configured breakpoint (screensize)
+
+This affords the ability to independently style mobile vs desktop navigation and even allows for completely different menus to be used.
+
+The Plugin should be used as follows:
+
+-   Install and Activate the plugin - two new block variations will be automatically registered for "Mobile" and "Desktop".
 -   Go to the Editor and remove any existing Navigation block.
 -   Add the "Desktop Navigation" block - style and configure the menu for "desktop" as required.
 -   Add the "Mobile Navigation" block - style and configure the menu for "mobile" as required.
+-   View the front of your website and resize your browser to see the navigations swap out at the appropriate breakpoint/screensize.
 
 ### Support
 
