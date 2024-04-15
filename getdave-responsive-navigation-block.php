@@ -13,7 +13,7 @@
  * @package getdave
  */
 
-namespace GetDave\ResponsiveNavBlockVariations;
+namespace GetDave\ResponsiveNavigationBlock;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -84,7 +84,7 @@ function enqueue_block_editor_assets() {
 
 	wp_localize_script(
 		'getdave-responsive-navigation-block-script',
-		'getdaveResponsiveNavBlockVariations',
+		'getdaveResponsiveNavigationBlock',
 		$inline_variables
 	);
 
