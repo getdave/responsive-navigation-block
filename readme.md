@@ -10,7 +10,6 @@ Contributors: get_dave
 
 Control your navigation menus based on screen size.
 
-[![](https://img.shields.io/badge/ethical-open%20source-4baaaa.svg?style=flat-square)](#ethical-open-source)
 [![](https://img.shields.io/wordpress/plugin/installs/responsive-navigation-block?style=flat-square)](https://wordpress.org/plugins/responsive-navigation-block/)
 
 ## Description
@@ -69,3 +68,9 @@ Due to complications with the way the default WordPress Navigation block works y
     -   background color - `Styles -> Color -> Text`.
 
 Styles for Desktop Navigation can be applied using the standard controls.
+
+## Changelog
+
+### 1.0.0
+
+Initial version.

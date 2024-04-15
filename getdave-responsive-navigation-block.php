@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Responsive Navigation Block - control your menus based on screen size.
  * Description:       Allows you to show different navigation menus based on the screen size using the Navigation block.
- * Requires at least: 6.5
- * Requires PHP:      7.0
+ * Requires at least: 6.2
+ * Requires PHP:      7.2
  * Version:           1.0.0
  * Author:            Dave Smith
  * License:           GPL-2.0-or-later
