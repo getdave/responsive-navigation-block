@@ -1,0 +1,19 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"steps": [
+		{
+			"step": "login"
+		},
+		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "responsive-navigation-block"
+			},
+			"options": {
+				"activate": true
+			}
+		}
+	],
+	"landingPage": "/wp-admin/site-editor.php?canvas=edit"
+}
