@@ -6,11 +6,12 @@ import './mobile-view-switcher';
 import './style.scss';
 
 // Data inlined from PHP.
-const { mobile: mobileClassName, desktop: desktopClassName } =
-	getdaveResponsiveNavBlockVariations.classNames;
+const { pluginName, classNames } = global.getdaveResponsiveNavBlockVariations;
+
+const { mobile: mobileClassName, desktop: desktopClassName } = classNames;
 
 registerBlockVariation( 'core/navigation', {
-	name: 'getdave-navigation-desktop',
+	name: `${ pluginName }-desktop`,
 	title: 'Desktop Navigation',
 	description: 'Navigation block preconfigured for larger viewports.',
 	attributes: {
@@ -26,7 +27,7 @@ registerBlockVariation( 'core/navigation', {
 } );
 
 registerBlockVariation( 'core/navigation', {
-	name: 'getdave-navigation-mobile',
+	name: `${ pluginName }-mobile`,
 	title: 'Mobile Navigation',
 	description: 'Navigation block preconfigured for smaller viewports.',
 	attributes: {

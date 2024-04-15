@@ -55,7 +55,7 @@ function register_assets() {
 		$assets = include $asset_file;
 
 		wp_register_script(
-			PLUGIN_NAME . '-script',
+			'getdave-responsive-navigation-block-script',
 			plugins_url( 'build/index.js', __FILE__ ),
 			$assets['dependencies'],
 			$assets['version']
@@ -69,7 +69,7 @@ function register_assets() {
 function enqueue_block_editor_assets() {
 
 	wp_enqueue_script(
-		PLUGIN_NAME . '-script',
+		'getdave-responsive-navigation-block-script',
 	);
 
 	// Inline variables for access in JavaScript.
@@ -78,6 +78,7 @@ function enqueue_block_editor_assets() {
 			'mobile'  => MOBILE_NAV_CLASS,
 			'desktop' => DESKTOP_NAV_CLASS,
 		),
+		'pluginName' => PLUGIN_NAME,
 	);
 
 	wp_localize_script(

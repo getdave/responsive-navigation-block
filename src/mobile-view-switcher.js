@@ -6,7 +6,7 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 
 // Data inlined from PHP.
 const { mobile: mobileClassName } =
-	getdaveResponsiveNavBlockVariations.classNames;
+	global.getdaveResponsiveNavBlockVariations.classNames;
 
 const MobileViewSwitcher = () => {
 	const selectedNavigationBlock = useSelect( ( select ) => {
