@@ -1,6 +1,6 @@
 {
   "name": "getdave-responsive-navigation-block",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Show different navigation menus based on the screen size using the Navigation block.",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "start:hot": "wp-scripts start --hot",
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js",
-    "bump-version": "npx bump package.json package-lock.json getdave-responsive-navigation-block.php readme.md"
+    "bump-version": "npx bump package.json package-lock.json getdave-responsive-navigation-block.php readme.md -c -t"
   },
   "author": "David Smith",
   "license": "GPLv2",
