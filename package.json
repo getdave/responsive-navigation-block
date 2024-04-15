@@ -1,6 +1,6 @@
 {
   "name": "getdave-responsive-navigation-block",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "description": "Show different navigation menus based on the screen size using the Navigation block.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,8 @@
     "start": "wp-scripts start",
     "start:hot": "wp-scripts start --hot",
     "test:e2e": "wp-scripts test-e2e",
-    "test:unit": "wp-scripts test-unit-js"
+    "test:unit": "wp-scripts test-unit-js",
+    "bump-version": "npx bump package.json package-lock.json getdave-responsive-navigation-block.php readme.md"
   },
   "author": "David Smith",
   "license": "GPLv2",
@@ -29,6 +30,7 @@
     "@wordpress/eslint-plugin": "^17.12.0",
     "@wordpress/plugins": "^6.23.0",
     "@wordpress/prettier-config": "^3.12.0",
-    "@wordpress/scripts": "^27.6.0"
+    "@wordpress/scripts": "^27.6.0",
+    "version-bump-prompt": "^6.1.0"
   }
 }

@@ -1,6 +1,6 @@
 # Responsive Navigation Block
 
-Stable tag: 1.0.0
+Stable tag: 0.0.4
 Tested up to: 6.5
 License: GPL v2 or later
 Tags: navigation, menus, responsive, blocks

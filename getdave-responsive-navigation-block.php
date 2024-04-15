@@ -4,7 +4,7 @@
  * Description:       Allows you to show different navigation menus based on the screen size using the Navigation block.
  * Requires at least: 6.2
  * Requires PHP:      7.2
- * Version:           1.0.0
+ * Version:           0.0.4
  * Author:            Dave Smith
  * License:           GPLv2
  * License URI:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
