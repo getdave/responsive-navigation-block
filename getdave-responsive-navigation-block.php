@@ -6,8 +6,8 @@
  * Requires PHP:      7.2
  * Version:           1.0.0
  * Author:            Dave Smith
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * License:           GPLv2
+ * License URI:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Text Domain:       getdave-responsive-navigation-block
  *
  * @package getdave
@@ -58,7 +58,8 @@ function register_assets() {
 			'getdave-responsive-navigation-block-script',
 			plugins_url( 'build/index.js', __FILE__ ),
 			$assets['dependencies'],
-			$assets['version']
+			$assets['version'],
+			true
 		);
 	}
 }
@@ -146,13 +147,13 @@ function settings_page_callback() {
 			do_settings_sections( PLUGIN_NAME . '_responsive_nav' );
 			submit_button( __( 'Save Settings', 'getdave-responsive-navigation-block' ) );
 			?>
-			<input type="button" name="reset" id="reset" class="button button-secondary" value="<?php _e( 'Reset', 'getdave-responsive-navigation-block' ); ?>" <?php disabled( $is_default ); ?> />
+			<input type="button" name="reset" id="reset" class="button button-secondary" value="<?php esc_attr_e( 'Reset', 'getdave-responsive-navigation-block' ); ?>" <?php disabled( $is_default ); ?> />
 		</form>
 	</div>
 	<script type="text/javascript">
 		document.getElementById('reset').addEventListener('click', function() {
-			document.querySelector('input[name="<?php echo PLUGIN_NAME; ?>_responsive_nav_breakpoint"]').value = '<?php echo DEFAULT_BREAKPOINT; ?>';
-			document.querySelector('select[name="<?php echo PLUGIN_NAME; ?>_responsive_nav_unit"]').value = '<?php echo DEFAULT_UNIT; ?>';
+			document.querySelector('input[name="<?php echo esc_attr( PLUGIN_NAME ); ?>_responsive_nav_breakpoint"]').value = '<?php echo esc_html( DEFAULT_BREAKPOINT ); ?>';
+			document.querySelector('select[name="<?php echo esc_attr( PLUGIN_NAME ); ?>_responsive_nav_unit"]').value = '<?php echo esc_html( DEFAULT_UNIT ); ?>';
 		});
 	</script>
 	<?php
@@ -206,19 +207,19 @@ function register_settings() {
 }
 
 function settings_section_callback() {
-	echo '<p>' . __( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdave-responsive-navigation-block' ) . '</p>';
-	echo '<p>' . __( '<strong>⚠️ Please note</strong>: setting this value will have no effect on the <em>standard</em> Navigation block.', 'getdave-responsive-navigation-block' ) . '</p>';
+	echo '<p>' . esc_html__( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdave-responsive-navigation-block' ) . '</p>';
+	echo '<p>' . esc_html__( '<strong>⚠️ Please note</strong>: setting this value will have no effect on the <em>standard</em> Navigation block.', 'getdave-responsive-navigation-block' ) . '</p>';
 }
 
 function settings_field_callback() {
 	$breakpoint = get_option( PLUGIN_NAME . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
-	echo '<input type="number" name="' . PLUGIN_NAME . '_responsive_nav_breakpoint" value="' . esc_attr( $breakpoint ) . '" min="0">';
+	echo '<input type="number" name="' . esc_attr( PLUGIN_NAME ) . '_responsive_nav_breakpoint" value="' . esc_attr( $breakpoint ) . '" min="0">';
 }
 
 function settings_field_unit_callback() {
 	$unit = get_option( PLUGIN_NAME . '_responsive_nav_unit', DEFAULT_UNIT );
 	?>
-	<select id="<?php echo PLUGIN_NAME . '_responsive_nav_unit'; ?>" name="<?php echo PLUGIN_NAME . '_responsive_nav_unit'; ?>">
+	<select id="<?php echo esc_attr( PLUGIN_NAME . '_responsive_nav_unit' ); ?>" name="<?php echo esc_attr( PLUGIN_NAME . '_responsive_nav_unit' ); ?>">
 		<option value="px" <?php selected( $unit, 'px' ); ?>>px</option>
 		<option value="em" <?php selected( $unit, 'em' ); ?>>em</option>
 		<option value="rem" <?php selected( $unit, 'rem' ); ?>>rem</option>
@@ -226,8 +227,6 @@ function settings_field_unit_callback() {
 	</select>
 	<?php
 }
-
-
 
 // Handle uninstallation.
 register_uninstall_hook( __FILE__, 'uninstall_plugin' );

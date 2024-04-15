@@ -14,7 +14,7 @@ Complete control over your navigation menus based on screen size including style
 
 ## Description
 
-This Plugin allows you to show different navigation menus based on the screen size using the WordPress Navigation block. Useful for displaying different menus on mobile or for more control of styling on smaller screens.
+This Plugin allows you to display and apply alternative styling to different navigation menus based on the screen size using the WordPress Navigation block.
 
 ### Features
 
