@@ -54,6 +54,14 @@ Responsive Navigation does _not_:
 
 ## Frequently Asked Questions
 
+### Why is this plugin necessary?
+
+The built in WordPress Navigation block provides limited control over its display on smaller screens. Whilst [efforts are underway to implement solutions to this natively within WordPress](https://github.com/WordPress/gutenberg/issues/43852#issuecomment-1884949063) they are currently still in development.
+
+Until a solution arrives in WordPress Core, this Plugin exists to provide a workaround solution that requires minimal user configuration.
+
+This Plugin was based upon a technique which I originally documented in my [YouTube Video: Use a different MENU on MOBILE with the Navigation block in WORDPRESS block editor](https://www.youtube.com/watch?v=dY3f8sHcAPA).
+
 ### Can I adjust the breakpoint?
 
 By default, the "breakpoint" at which the mobile navigation will switch to show the desktop navigation is `782px`. This aligns with the default configuration of the built in Wordpress Navigation block. To change this you can:
@@ -62,6 +70,8 @@ By default, the "breakpoint" at which the mobile navigation will switch to show 
 -   Go to `Settings -> Responsive Navigation`.
 -   Configure the breakpoint value and the required unit. Save.
 -   The breakpoint will be adjusted to match your new configuration.
+
+Note that you can use relative units such as `em`, `rem` and `vw`.
 
 ### Styling of my mobile menu doesn't work
 
