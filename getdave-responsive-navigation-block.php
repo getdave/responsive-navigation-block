@@ -24,11 +24,11 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Constants.
  */
-define( 'PLUGIN_NAME', 'getdavernb' );
+define( 'PLUGIN_SLUG', 'getdavernb' );
 define( 'DEFAULT_BREAKPOINT', 782 );
 define( 'DEFAULT_UNIT', 'px' );
-define( 'MOBILE_NAV_CLASS', PLUGIN_NAME . '-is-mobile' );
-define( 'DESKTOP_NAV_CLASS', PLUGIN_NAME . '-is-desktop' );
+define( 'MOBILE_NAV_CLASS', PLUGIN_SLUG . '-is-mobile' );
+define( 'DESKTOP_NAV_CLASS', PLUGIN_SLUG . '-is-desktop' );
 
 /**
  * Initialize the plugin.
@@ -42,8 +42,8 @@ function init() {
 }
 
 function uninstall_plugin() {
-	delete_option( PLUGIN_NAME . '_responsive_nav_breakpoint' );
-	delete_option( PLUGIN_NAME . '_responsive_nav_unit' );
+	delete_option( PLUGIN_SLUG . '_responsive_nav_breakpoint' );
+	delete_option( PLUGIN_SLUG . '_responsive_nav_unit' );
 }
 
 /**
@@ -80,7 +80,7 @@ function enqueue_block_editor_assets() {
 			'mobile'  => MOBILE_NAV_CLASS,
 			'desktop' => DESKTOP_NAV_CLASS,
 		),
-		'pluginName' => PLUGIN_NAME,
+		'pluginName' => PLUGIN_SLUG,
 	);
 
 	wp_localize_script(
@@ -115,14 +115,14 @@ function generate_block_breakpoints_css( $breakpoint, $unit ) {
 
 function enqueue_block_assets() {
 
-	$breakpoint = get_option( PLUGIN_NAME . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
-	$unit       = get_option( PLUGIN_NAME . '_responsive_nav_unit', DEFAULT_UNIT );
+	$breakpoint = get_option( PLUGIN_SLUG . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
+	$unit       = get_option( PLUGIN_SLUG . '_responsive_nav_unit', DEFAULT_UNIT );
 	$css        = generate_block_breakpoints_css( $breakpoint, $unit );
 
 	// Create a fake stylesheet to allow for inlining the CSS rules.
-	wp_register_style( PLUGIN_NAME . '-style', false );
-	wp_enqueue_style( PLUGIN_NAME . '-style' );
-	wp_add_inline_style( PLUGIN_NAME . '-style', $css );
+	wp_register_style( PLUGIN_SLUG . '-style', false );
+	wp_enqueue_style( PLUGIN_SLUG . '-style' );
+	wp_add_inline_style( PLUGIN_SLUG . '-style', $css );
 }
 
 function add_settings_page() {
@@ -130,14 +130,14 @@ function add_settings_page() {
 		__( 'Responsive Navigation Block Settings', 'getdavernb' ), // Page title
 		__( 'Responsive Navigation Block', 'getdavernb' ), // Menu title
 		'manage_options', // Capability
-		PLUGIN_NAME . '_responsive_nav', // Menu slug
+		PLUGIN_SLUG . '_responsive_nav', // Menu slug
 		__NAMESPACE__ . '\settings_page_callback' // Callback function
 	);
 }
 
 function settings_page_callback() {
-	$breakpoint = get_option( PLUGIN_NAME . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
-	$unit       = get_option( PLUGIN_NAME . '_responsive_nav_unit', DEFAULT_UNIT );
+	$breakpoint = get_option( PLUGIN_SLUG . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
+	$unit       = get_option( PLUGIN_SLUG . '_responsive_nav_unit', DEFAULT_UNIT );
 	$is_default = $breakpoint == DEFAULT_BREAKPOINT && $unit == DEFAULT_UNIT;
 	?>
 	<div class="wrap">
@@ -145,7 +145,7 @@ function settings_page_callback() {
 		<form action="options.php" method="post">
 			<?php
 			settings_fields( 'reading' );
-			do_settings_sections( PLUGIN_NAME . '_responsive_nav' );
+			do_settings_sections( PLUGIN_SLUG . '_responsive_nav' );
 			submit_button( __( 'Save Settings', 'getdavernb' ) );
 			?>
 			<input type="button" name="reset" id="reset" class="button button-secondary" value="<?php esc_attr_e( 'Reset', 'getdavernb' ); ?>" <?php disabled( $is_default ); ?> />
@@ -153,8 +153,8 @@ function settings_page_callback() {
 	</div>
 	<script type="text/javascript">
 		document.getElementById('reset').addEventListener('click', function() {
-			document.querySelector('input[name="<?php echo esc_attr( PLUGIN_NAME ); ?>_responsive_nav_breakpoint"]').value = '<?php echo esc_html( DEFAULT_BREAKPOINT ); ?>';
-			document.querySelector('select[name="<?php echo esc_attr( PLUGIN_NAME ); ?>_responsive_nav_unit"]').value = '<?php echo esc_html( DEFAULT_UNIT ); ?>';
+			document.querySelector('input[name="<?php echo esc_attr( PLUGIN_SLUG ); ?>_responsive_nav_breakpoint"]').value = '<?php echo esc_html( DEFAULT_BREAKPOINT ); ?>';
+			document.querySelector('select[name="<?php echo esc_attr( PLUGIN_SLUG ); ?>_responsive_nav_unit"]').value = '<?php echo esc_html( DEFAULT_UNIT ); ?>';
 		});
 	</script>
 	<?php
@@ -163,7 +163,7 @@ function settings_page_callback() {
 function register_settings() {
 	register_setting(
 		'reading',
-		PLUGIN_NAME . '_responsive_nav_breakpoint',
+		PLUGIN_SLUG . '_responsive_nav_breakpoint',
 		array(
 			'type'              => 'integer',
 			'description'       => __( 'The breakpoint at which the navigation will switch to mobile view', 'getdavernb' ),
@@ -174,7 +174,7 @@ function register_settings() {
 
 	register_setting(
 		'reading',
-		PLUGIN_NAME . '_responsive_nav_unit',
+		PLUGIN_SLUG . '_responsive_nav_unit',
 		array(
 			'type'              => 'string',
 			'description'       => __( 'The unit of the navigation breakpoint', 'getdavernb' ),
@@ -184,43 +184,43 @@ function register_settings() {
 	);
 
 	add_settings_section(
-		PLUGIN_NAME . '_responsive_nav_settings_section',
+		PLUGIN_SLUG . '_responsive_nav_settings_section',
 		__( 'Responsive Navigation Settings', 'getdavernb' ),
 		__NAMESPACE__ . '\settings_section_callback',
-		PLUGIN_NAME . '_responsive_nav'
+		PLUGIN_SLUG . '_responsive_nav'
 	);
 
 	add_settings_field(
-		PLUGIN_NAME . '_responsive_nav_breakpoint',
+		PLUGIN_SLUG . '_responsive_nav_breakpoint',
 		__( 'Breakpoint', 'getdavernb' ),
 		__NAMESPACE__ . '\settings_field_callback',
-		PLUGIN_NAME . '_responsive_nav',
-		PLUGIN_NAME . '_responsive_nav_settings_section'
+		PLUGIN_SLUG . '_responsive_nav',
+		PLUGIN_SLUG . '_responsive_nav_settings_section'
 	);
 
 	add_settings_field(
-		PLUGIN_NAME . '_responsive_nav_unit',
+		PLUGIN_SLUG . '_responsive_nav_unit',
 		__( 'Breakpoint Unit', 'getdavernb' ),
 		__NAMESPACE__ . '\settings_field_unit_callback',
-		PLUGIN_NAME . '_responsive_nav',
-		PLUGIN_NAME . '_responsive_nav_settings_section'
+		PLUGIN_SLUG . '_responsive_nav',
+		PLUGIN_SLUG . '_responsive_nav_settings_section'
 	);
 }
 
 function settings_section_callback() {
 	echo '<p>' . esc_html__( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdavernb' ) . '</p>';
-	echo '<p>' . esc_html__( '⚠️ Please note: setting this value will have no effect on the <em>standard</em> Navigation block.', 'getdavernb' ) . '</p>';
+	echo '<p>' . esc_html__( '⚠️ Please note: setting this value will have no effect on the standard Navigation block.', 'getdavernb' ) . '</p>';
 }
 
 function settings_field_callback() {
-	$breakpoint = get_option( PLUGIN_NAME . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
-	echo '<input type="number" name="' . esc_attr( PLUGIN_NAME ) . '_responsive_nav_breakpoint" value="' . esc_attr( $breakpoint ) . '" min="0">';
+	$breakpoint = get_option( PLUGIN_SLUG . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
+	echo '<input type="number" name="' . esc_attr( PLUGIN_SLUG ) . '_responsive_nav_breakpoint" value="' . esc_attr( $breakpoint ) . '" min="0">';
 }
 
 function settings_field_unit_callback() {
-	$unit = get_option( PLUGIN_NAME . '_responsive_nav_unit', DEFAULT_UNIT );
+	$unit = get_option( PLUGIN_SLUG . '_responsive_nav_unit', DEFAULT_UNIT );
 	?>
-	<select id="<?php echo esc_attr( PLUGIN_NAME . '_responsive_nav_unit' ); ?>" name="<?php echo esc_attr( PLUGIN_NAME . '_responsive_nav_unit' ); ?>">
+	<select id="<?php echo esc_attr( PLUGIN_SLUG . '_responsive_nav_unit' ); ?>" name="<?php echo esc_attr( PLUGIN_SLUG . '_responsive_nav_unit' ); ?>">
 		<option value="px" <?php selected( $unit, 'px' ); ?>>px</option>
 		<option value="em" <?php selected( $unit, 'em' ); ?>>em</option>
 		<option value="rem" <?php selected( $unit, 'rem' ); ?>>rem</option>
