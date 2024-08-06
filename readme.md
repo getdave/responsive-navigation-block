@@ -86,6 +86,19 @@ Due to complications with the way the default WordPress Navigation block works y
 
 Styles for Desktop Navigation can be applied using the standard controls.
 
+## Contributing
+
+Contributions to this Plugin are welcome. Please fork the Github repository and submit a PR for review.
+
+### Development Setup
+
+This Plugin uses the [@wordpress/scripts package](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/).
+
+-   Check out the Github repo into the `wp-content/plugins` directory of a WordPress installation.
+-   `cd` into the Plugin's directory install the dependencies with `npm i`.
+-   Running `npm start` will start the `@wordpress/scripts` package in watch mode ready to compile the JavaScript on modification.
+-   PHP files can be edited in the usual manner.
+
 ## Changelog
 
 ### 1.0.0
