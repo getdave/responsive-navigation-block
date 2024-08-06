@@ -83,10 +83,10 @@ function enqueue_block_editor_assets() {
 		'pluginName' => PLUGIN_SLUG,
 	);
 
-	wp_localize_script(
+	wp_add_inline_script(
 		'getdavernb-script',
-		'getdaveResponsiveNavigationBlock',
-		$inline_variables
+		'const GETDAVERNB = ' . json_encode( $inline_variables ) . ';',
+		'before'
 	);
 
 }

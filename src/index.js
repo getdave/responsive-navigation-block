@@ -5,7 +5,7 @@ import { registerBlockVariation } from '@wordpress/blocks';
 import './mobile-view-switcher';
 
 // Data inlined from PHP.
-const { pluginName, classNames } = global.getdaveResponsiveNavigationBlock;
+const { pluginName, classNames } = GETDAVERNB;
 
 const { mobile: mobileClassName, desktop: desktopClassName } = classNames;
 

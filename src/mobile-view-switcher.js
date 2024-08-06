@@ -4,7 +4,7 @@ import { useEffect } from '@wordpress/element';
 import { store as editorStore } from '@wordpress/editor';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
-const { pluginName, classNames } = global.getdaveResponsiveNavigationBlock;
+const { pluginName, classNames } = GETDAVERNB;
 
 // Data inlined from PHP.
 const { mobile: mobileClassName } = classNames;
