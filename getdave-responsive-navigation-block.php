@@ -41,6 +41,8 @@ function init() {
 	add_action( 'admin_menu', __NAMESPACE__ . '\add_settings_page' );
 }
 
+
+
 function uninstall_plugin() {
 	delete_option( PLUGIN_SLUG . '_responsive_nav_breakpoint' );
 	delete_option( PLUGIN_SLUG . '_responsive_nav_unit' );
@@ -136,9 +138,6 @@ function add_settings_page() {
 }
 
 function settings_page_callback() {
-	$breakpoint = get_option( PLUGIN_SLUG . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
-	$unit       = get_option( PLUGIN_SLUG . '_responsive_nav_unit', DEFAULT_UNIT );
-	$is_default = $breakpoint == DEFAULT_BREAKPOINT && $unit == DEFAULT_UNIT;
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -148,15 +147,8 @@ function settings_page_callback() {
 			do_settings_sections( PLUGIN_SLUG . '_responsive_nav' );
 			submit_button( __( 'Save Settings', 'getdavernb' ) );
 			?>
-			<input type="button" name="reset" id="reset" class="button button-secondary" value="<?php esc_attr_e( 'Reset', 'getdavernb' ); ?>" <?php disabled( $is_default ); ?> />
 		</form>
 	</div>
-	<script type="text/javascript">
-		document.getElementById('reset').addEventListener('click', function() {
-			document.querySelector('input[name="<?php echo esc_attr( PLUGIN_SLUG ); ?>_responsive_nav_breakpoint"]').value = '<?php echo esc_html( DEFAULT_BREAKPOINT ); ?>';
-			document.querySelector('select[name="<?php echo esc_attr( PLUGIN_SLUG ); ?>_responsive_nav_unit"]').value = '<?php echo esc_html( DEFAULT_UNIT ); ?>';
-		});
-	</script>
 	<?php
 }
 
