@@ -5,12 +5,12 @@ import { registerBlockVariation } from '@wordpress/blocks';
 import './mobile-view-switcher';
 
 // Data inlined from PHP.
-const { pluginName, classNames } = GETDAVERNB;
+const { pluginSlug, classNames } = GETDAVERNB;
 
 const { mobile: mobileClassName, desktop: desktopClassName } = classNames;
 
 registerBlockVariation( 'core/navigation', {
-	name: `${ pluginName }-desktop`,
+	name: `${ pluginSlug }-desktop`,
 	title: 'Desktop Navigation',
 	description: 'Navigation block preconfigured for larger viewports.',
 	attributes: {
@@ -26,7 +26,7 @@ registerBlockVariation( 'core/navigation', {
 } );
 
 registerBlockVariation( 'core/navigation', {
-	name: `${ pluginName }-mobile`,
+	name: `${ pluginSlug }-mobile`,
 	title: 'Mobile Navigation',
 	description: 'Navigation block preconfigured for smaller viewports.',
 	attributes: {

@@ -4,7 +4,7 @@ import { useEffect } from '@wordpress/element';
 import { store as editorStore } from '@wordpress/editor';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
-const { pluginName, classNames } = GETDAVERNB;
+const { pluginSlug, classNames } = GETDAVERNB;
 
 // Data inlined from PHP.
 const { mobile: mobileClassName } = classNames;
@@ -53,6 +53,6 @@ const MobileViewSwitcher = () => {
 	return null;
 };
 
-registerPlugin( `${ pluginName }-mobile-view-switcher`, {
+registerPlugin( `${ pluginSlug }-mobile-view-switcher`, {
 	render: MobileViewSwitcher,
 } );
