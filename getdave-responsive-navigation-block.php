@@ -87,7 +87,7 @@ function enqueue_block_editor_assets() {
 
 	wp_add_inline_script(
 		'getdavernb-script',
-		'const ' . strtoupper( PLUGIN_SLUG ) . ' = ' . json_encode( $inline_variables ) . ';',
+		'const ' . strtoupper( PLUGIN_SLUG ) . ' = ' . wp_json_encode( $inline_variables ) . ';',
 		'before'
 	);
 
