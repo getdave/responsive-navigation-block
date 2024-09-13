@@ -24,12 +24,12 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Constants.
  */
-define( 'PLUGIN_SLUG', 'getdave-responsive-navigation-block' );
-define( 'PLUGIN_SLUG_SHORT', 'getdavernb' );
-define( 'DEFAULT_BREAKPOINT', 782 );
-define( 'DEFAULT_UNIT', 'px' );
-define( 'MOBILE_NAV_CLASS', PLUGIN_SLUG . '-is-mobile' );
-define( 'DESKTOP_NAV_CLASS', PLUGIN_SLUG . '-is-desktop' );
+define( 'GDRNB_PLUGIN_SLUG', 'getdave-responsive-navigation-block' );
+define( 'GDRNB_PLUGIN_SLUG_SHORT', 'getdavernb' );
+define( 'GDRNB_DEFAULT_BREAKPOINT', 782 );
+define( 'GDRNB_DEFAULT_UNIT', 'px' );
+define( 'GDRNB_MOBILE_NAV_CLASS', GDRNB_PLUGIN_SLUG . '-is-mobile' );
+define( 'GDRNB_DESKTOP_NAV_CLASS', GDRNB_PLUGIN_SLUG . '-is-desktop' );
 
 /**
  * Initialize the plugin.
@@ -45,8 +45,8 @@ function init() {
 
 
 function uninstall_plugin() {
-	delete_option( PLUGIN_SLUG . '_responsive_nav_breakpoint' );
-	delete_option( PLUGIN_SLUG . '_responsive_nav_unit' );
+	delete_option( GDRNB_PLUGIN_SLUG . '_responsive_nav_breakpoint' );
+	delete_option( GDRNB_PLUGIN_SLUG . '_responsive_nav_unit' );
 }
 
 /**
@@ -80,15 +80,15 @@ function enqueue_block_editor_assets() {
 	// Inline variables for access in JavaScript.
 	$inline_variables = array(
 		'classNames' => array(
-			'mobile'  => MOBILE_NAV_CLASS,
-			'desktop' => DESKTOP_NAV_CLASS,
+			'mobile'  => GDRNB_MOBILE_NAV_CLASS,
+			'desktop' => GDRNB_DESKTOP_NAV_CLASS,
 		),
-		'pluginName' => PLUGIN_SLUG,
+		'pluginName' => GDRNB_PLUGIN_SLUG,
 	);
 
 	wp_add_inline_script(
 		'getdavernb-script',
-		'const ' . strtoupper( PLUGIN_SLUG_SHORT ) . ' = ' . wp_json_encode( $inline_variables ) . ';',
+		'const ' . strtoupper( GDRNB_PLUGIN_SLUG_SHORT ) . ' = ' . wp_json_encode( $inline_variables ) . ';',
 		'before'
 	);
 
@@ -110,13 +110,13 @@ function generate_block_breakpoints_css( $breakpoint, $unit ) {
 
     return '
         @media (min-width: ' . esc_attr( $breakpoint ) . esc_attr( $unit ) . ') {
-            .wp-block-navigation.' . esc_attr( MOBILE_NAV_CLASS ) . ' {
+            .wp-block-navigation.' . esc_attr( GDRNB_MOBILE_NAV_CLASS ) . ' {
                 display: none;
             }
         }
 
         @media (max-width: calc(' . esc_attr( $breakpoint ) . esc_attr( $unit ) . ' - 1px)) {
-            .wp-block-navigation.' . esc_attr( DESKTOP_NAV_CLASS ) . ' {
+            .wp-block-navigation.' . esc_attr( GDRNB_DESKTOP_NAV_CLASS ) . ' {
                 display: none;
             }
         }
@@ -125,14 +125,14 @@ function generate_block_breakpoints_css( $breakpoint, $unit ) {
 
 function enqueue_block_assets() {
 
-	$breakpoint = get_option( PLUGIN_SLUG . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
-	$unit       = get_option( PLUGIN_SLUG . '_responsive_nav_unit', DEFAULT_UNIT );
+	$breakpoint = get_option( GDRNB_PLUGIN_SLUG . '_responsive_nav_breakpoint', GDRNB_DEFAULT_BREAKPOINT );
+	$unit       = get_option( GDRNB_PLUGIN_SLUG . '_responsive_nav_unit', GDRNB_DEFAULT_UNIT );
 	$css        = generate_block_breakpoints_css( $breakpoint, $unit );
 
 	// Create a fake stylesheet to allow for inlining the CSS rules.
-	wp_register_style( PLUGIN_SLUG . '-style', false );
-	wp_enqueue_style( PLUGIN_SLUG . '-style' );
-	wp_add_inline_style( PLUGIN_SLUG . '-style', $css );
+	wp_register_style( GDRNB_PLUGIN_SLUG . '-style', false );
+	wp_enqueue_style( GDRNB_PLUGIN_SLUG . '-style' );
+	wp_add_inline_style( GDRNB_PLUGIN_SLUG . '-style', $css );
 }
 
 function add_settings_page() {
@@ -140,7 +140,7 @@ function add_settings_page() {
 		__( 'Responsive Navigation Block Settings', 'getdave-responsive-navigation-block' ), // Page title
 		__( 'Responsive Navigation Block', 'getdave-responsive-navigation-block' ), // Menu title
 		'manage_options', // Capability
-		PLUGIN_SLUG . '_responsive_nav', // Menu slug
+		GDRNB_PLUGIN_SLUG . '_responsive_nav', // Menu slug
 		__NAMESPACE__ . '\settings_page_callback' // Callback function
 	);
 }
@@ -152,7 +152,7 @@ function settings_page_callback() {
 		<form action="options.php" method="post">
 			<?php
 			settings_fields( 'reading' );
-			do_settings_sections( PLUGIN_SLUG . '_responsive_nav' );
+			do_settings_sections( GDRNB_PLUGIN_SLUG . '_responsive_nav' );
 			submit_button( __( 'Save Settings', 'getdave-responsive-navigation-block' ) );
 			?>
 		</form>
@@ -163,47 +163,47 @@ function settings_page_callback() {
 function register_settings() {
 	register_setting(
 		'reading',
-		PLUGIN_SLUG . '_responsive_nav_breakpoint',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav_breakpoint',
 		array(
 			'type'              => 'integer',
 			'description'       => __( 'The breakpoint at which the navigation will switch to mobile view', 'getdave-responsive-navigation-block' ),
 			'sanitize_callback' => 'absint',
-			'default'           => DEFAULT_BREAKPOINT,
+			'default'           => GDRNB_DEFAULT_BREAKPOINT,
 		)
 	);
 
 	register_setting(
 		'reading',
-		PLUGIN_SLUG . '_responsive_nav_unit',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav_unit',
 		array(
 			'type'              => 'string',
 			'description'       => __( 'The unit of the navigation breakpoint', 'getdave-responsive-navigation-block' ),
 			'sanitize_callback' => 'sanitize_text_field',
-			'default'           => DEFAULT_UNIT,
+			'default'           => GDRNB_DEFAULT_UNIT,
 		)
 	);
 
 	add_settings_section(
-		PLUGIN_SLUG . '_responsive_nav_settings_section',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav_settings_section',
 		__( 'Responsive Navigation Settings', 'getdave-responsive-navigation-block' ),
 		__NAMESPACE__ . '\settings_section_callback',
-		PLUGIN_SLUG . '_responsive_nav'
+		GDRNB_PLUGIN_SLUG . '_responsive_nav'
 	);
 
 	add_settings_field(
-		PLUGIN_SLUG . '_responsive_nav_breakpoint',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav_breakpoint',
 		__( 'Breakpoint', 'getdave-responsive-navigation-block' ),
 		__NAMESPACE__ . '\settings_field_callback',
-		PLUGIN_SLUG . '_responsive_nav',
-		PLUGIN_SLUG . '_responsive_nav_settings_section'
+		GDRNB_PLUGIN_SLUG . '_responsive_nav',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav_settings_section'
 	);
 
 	add_settings_field(
-		PLUGIN_SLUG . '_responsive_nav_unit',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav_unit',
 		__( 'Breakpoint Unit', 'getdave-responsive-navigation-block' ),
 		__NAMESPACE__ . '\settings_field_unit_callback',
-		PLUGIN_SLUG . '_responsive_nav',
-		PLUGIN_SLUG . '_responsive_nav_settings_section'
+		GDRNB_PLUGIN_SLUG . '_responsive_nav',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav_settings_section'
 	);
 }
 
@@ -213,14 +213,14 @@ function settings_section_callback() {
 }
 
 function settings_field_callback() {
-	$breakpoint = get_option( PLUGIN_SLUG . '_responsive_nav_breakpoint', DEFAULT_BREAKPOINT );
-	echo '<input type="number" name="' . esc_attr( PLUGIN_SLUG ) . '_responsive_nav_breakpoint" value="' . esc_attr( $breakpoint ) . '" min="0">';
+	$breakpoint = get_option( GDRNB_PLUGIN_SLUG . '_responsive_nav_breakpoint', GDRNB_DEFAULT_BREAKPOINT );
+	echo '<input type="number" name="' . esc_attr( GDRNB_PLUGIN_SLUG ) . '_responsive_nav_breakpoint" value="' . esc_attr( $breakpoint ) . '" min="0">';
 }
 
 function settings_field_unit_callback() {
-	$unit = get_option( PLUGIN_SLUG . '_responsive_nav_unit', DEFAULT_UNIT );
+	$unit = get_option( GDRNB_PLUGIN_SLUG . '_responsive_nav_unit', GDRNB_DEFAULT_UNIT );
 	?>
-	<select id="<?php echo esc_attr( PLUGIN_SLUG . '_responsive_nav_unit' ); ?>" name="<?php echo esc_attr( PLUGIN_SLUG . '_responsive_nav_unit' ); ?>">
+	<select id="<?php echo esc_attr( GDRNB_PLUGIN_SLUG . '_responsive_nav_unit' ); ?>" name="<?php echo esc_attr( GDRNB_PLUGIN_SLUG . '_responsive_nav_unit' ); ?>">
 		<option value="px" <?php selected( $unit, 'px' ); ?>>px</option>
 		<option value="em" <?php selected( $unit, 'em' ); ?>>em</option>
 		<option value="rem" <?php selected( $unit, 'rem' ); ?>>rem</option>
