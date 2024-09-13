@@ -101,15 +101,22 @@ function enqueue_block_editor_assets() {
  * @return string
  */
 function generate_block_breakpoints_css( $breakpoint, $unit ) {
-	return '
-        @media (min-width: ' . $breakpoint . $unit . ') {
-            .wp-block-navigation.' . MOBILE_NAV_CLASS . ' {
+
+	// "Late" sanitization for the breakpoint and unit.
+	// These are pre-validated in the settings page `sanitize_callback`
+	// but we'll sanitize them here to ensure they're safe to use in CSS.
+	$breakpoint = absint( $breakpoint );
+	$unit       = sanitize_text_field( $unit );
+
+    return '
+        @media (min-width: ' . esc_attr( $breakpoint ) . esc_attr( $unit ) . ') {
+            .wp-block-navigation.' . esc_attr( MOBILE_NAV_CLASS ) . ' {
                 display: none;
             }
         }
 
-        @media (max-width: calc(' . $breakpoint . $unit . ' - 1px)) {
-            .wp-block-navigation.' . DESKTOP_NAV_CLASS . ' {
+        @media (max-width: calc(' . esc_attr( $breakpoint ) . esc_attr( $unit ) . ' - 1px)) {
+            .wp-block-navigation.' . esc_attr( DESKTOP_NAV_CLASS ) . ' {
                 display: none;
             }
         }
