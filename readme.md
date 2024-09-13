@@ -1,6 +1,6 @@
 # Responsive Navigation Block
 
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Tested up to: 6.6
 License: GPL-2.0-or-later
 Tags: navigation, menus, responsive, blocks
@@ -102,6 +102,6 @@ This Plugin uses the [@wordpress/scripts package](https://developer.wordpress.or
 
 ## Changelog
 
-### 1.0.0
+### 1.0.1
 
 Initial version.
