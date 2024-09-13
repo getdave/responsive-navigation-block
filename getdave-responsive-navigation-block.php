@@ -9,7 +9,7 @@
  * Plugin URI:        https://github.com/getdave/responsive-navigation-block
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
- * Text Domain:       getdavernb
+ * Text Domain:       getdave-responsive-navigation-block
  *
  * @package getdave
  */
@@ -24,7 +24,8 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Constants.
  */
-define( 'PLUGIN_SLUG', 'getdavernb' );
+define( 'PLUGIN_SLUG', 'getdave-responsive-navigation-block' );
+define( 'PLUGIN_SLUG_SHORT', 'getdavernb' );
 define( 'DEFAULT_BREAKPOINT', 782 );
 define( 'DEFAULT_UNIT', 'px' );
 define( 'MOBILE_NAV_CLASS', PLUGIN_SLUG . '-is-mobile' );
@@ -87,7 +88,7 @@ function enqueue_block_editor_assets() {
 
 	wp_add_inline_script(
 		'getdavernb-script',
-		'const ' . strtoupper( PLUGIN_SLUG ) . ' = ' . wp_json_encode( $inline_variables ) . ';',
+		'const ' . strtoupper( PLUGIN_SLUG_SHORT ) . ' = ' . wp_json_encode( $inline_variables ) . ';',
 		'before'
 	);
 
@@ -129,8 +130,8 @@ function enqueue_block_assets() {
 
 function add_settings_page() {
 	add_options_page(
-		__( 'Responsive Navigation Block Settings', 'getdavernb' ), // Page title
-		__( 'Responsive Navigation Block', 'getdavernb' ), // Menu title
+		__( 'Responsive Navigation Block Settings', 'getdave-responsive-navigation-block' ), // Page title
+		__( 'Responsive Navigation Block', 'getdave-responsive-navigation-block' ), // Menu title
 		'manage_options', // Capability
 		PLUGIN_SLUG . '_responsive_nav', // Menu slug
 		__NAMESPACE__ . '\settings_page_callback' // Callback function
@@ -145,7 +146,7 @@ function settings_page_callback() {
 			<?php
 			settings_fields( 'reading' );
 			do_settings_sections( PLUGIN_SLUG . '_responsive_nav' );
-			submit_button( __( 'Save Settings', 'getdavernb' ) );
+			submit_button( __( 'Save Settings', 'getdave-responsive-navigation-block' ) );
 			?>
 		</form>
 	</div>
@@ -158,7 +159,7 @@ function register_settings() {
 		PLUGIN_SLUG . '_responsive_nav_breakpoint',
 		array(
 			'type'              => 'integer',
-			'description'       => __( 'The breakpoint at which the navigation will switch to mobile view', 'getdavernb' ),
+			'description'       => __( 'The breakpoint at which the navigation will switch to mobile view', 'getdave-responsive-navigation-block' ),
 			'sanitize_callback' => 'absint',
 			'default'           => DEFAULT_BREAKPOINT,
 		)
@@ -169,7 +170,7 @@ function register_settings() {
 		PLUGIN_SLUG . '_responsive_nav_unit',
 		array(
 			'type'              => 'string',
-			'description'       => __( 'The unit of the navigation breakpoint', 'getdavernb' ),
+			'description'       => __( 'The unit of the navigation breakpoint', 'getdave-responsive-navigation-block' ),
 			'sanitize_callback' => 'sanitize_text_field',
 			'default'           => DEFAULT_UNIT,
 		)
@@ -177,14 +178,14 @@ function register_settings() {
 
 	add_settings_section(
 		PLUGIN_SLUG . '_responsive_nav_settings_section',
-		__( 'Responsive Navigation Settings', 'getdavernb' ),
+		__( 'Responsive Navigation Settings', 'getdave-responsive-navigation-block' ),
 		__NAMESPACE__ . '\settings_section_callback',
 		PLUGIN_SLUG . '_responsive_nav'
 	);
 
 	add_settings_field(
 		PLUGIN_SLUG . '_responsive_nav_breakpoint',
-		__( 'Breakpoint', 'getdavernb' ),
+		__( 'Breakpoint', 'getdave-responsive-navigation-block' ),
 		__NAMESPACE__ . '\settings_field_callback',
 		PLUGIN_SLUG . '_responsive_nav',
 		PLUGIN_SLUG . '_responsive_nav_settings_section'
@@ -192,7 +193,7 @@ function register_settings() {
 
 	add_settings_field(
 		PLUGIN_SLUG . '_responsive_nav_unit',
-		__( 'Breakpoint Unit', 'getdavernb' ),
+		__( 'Breakpoint Unit', 'getdave-responsive-navigation-block' ),
 		__NAMESPACE__ . '\settings_field_unit_callback',
 		PLUGIN_SLUG . '_responsive_nav',
 		PLUGIN_SLUG . '_responsive_nav_settings_section'
@@ -200,8 +201,8 @@ function register_settings() {
 }
 
 function settings_section_callback() {
-	echo '<p>' . esc_html__( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdavernb' ) . '</p>';
-	echo '<p>' . esc_html__( '⚠️ Please note: setting this value will have no effect on the standard Navigation block.', 'getdavernb' ) . '</p>';
+	echo '<p>' . esc_html__( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdave-responsive-navigation-block' ) . '</p>';
+	echo '<p>' . esc_html__( '⚠️ Please note: setting this value will have no effect on the standard Navigation block.', 'getdave-responsive-navigation-block' ) . '</p>';
 }
 
 function settings_field_callback() {
