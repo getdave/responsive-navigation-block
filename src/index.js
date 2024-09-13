@@ -1,5 +1,6 @@
 // WordPress dependencies.
 import { registerBlockVariation } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
 
 // Local dependencies.
 import './mobile-view-switcher';
@@ -11,8 +12,11 @@ const { mobile: mobileClassName, desktop: desktopClassName } = classNames;
 
 registerBlockVariation( 'core/navigation', {
 	name: `${ pluginSlug }-desktop`,
-	title: 'Desktop Navigation',
-	description: 'Navigation block preconfigured for larger viewports.',
+	title: __( 'Desktop Navigation', 'getdave-responsive-navigation-block' ),
+	description: __(
+		'Navigation block preconfigured for larger viewports.',
+		'getdave-responsive-navigation-block'
+	),
 	attributes: {
 		overlayMenu: 'never',
 		className: desktopClassName,
@@ -27,8 +31,11 @@ registerBlockVariation( 'core/navigation', {
 
 registerBlockVariation( 'core/navigation', {
 	name: `${ pluginSlug }-mobile`,
-	title: 'Mobile Navigation',
-	description: 'Navigation block preconfigured for smaller viewports.',
+	title: __( 'Mobile Navigation', 'getdave-responsive-navigation-block' ),
+	description: __(
+		'Navigation block preconfigured for smaller viewports.',
+		'getdave-responsive-navigation-block'
+	),
 	attributes: {
 		overlayMenu: 'always',
 		className: mobileClassName,
