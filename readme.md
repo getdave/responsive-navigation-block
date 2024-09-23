@@ -100,6 +100,16 @@ This Plugin uses the [@wordpress/scripts package](https://developer.wordpress.or
 -   Running `npm start` will start the `@wordpress/scripts` package in watch mode ready to compile the JavaScript on modification.
 -   PHP files can be edited in the usual manner.
 
+### Testing
+
+The Plugin has e2e test coverage for the key features courtesey of @wordpress/scripts and Playwright.
+
+To run the tests - in your terminal of choice:
+
+-   `npm run build`.
+-   `npm run wp-env start`.
+-   Run the tests: `npm run test:e2e`
+
 ### Releasing
 
 Releasing the Plugin is the prerogative of the Plugin owner (@get_dave). The process is as follows:
