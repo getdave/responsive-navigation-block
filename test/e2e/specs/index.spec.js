@@ -3,7 +3,8 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
-const PLUGIN_SLUG = 'getdave-responsive-navigation';
+// Note this will match a slugified version of the "Plugin Name" in the plugin header.
+const PLUGIN_SLUG = 'responsive-navigation-block';
 
 test.describe( 'Responsive Navigation block', () => {
 	let desktopMenu;

@@ -16,8 +16,8 @@
     "plugin-zip": "wp-scripts plugin-zip",
     "start": "wp-scripts start",
     "start:hot": "wp-scripts start --hot",
-    "test:e2e": "wp-scripts test-playwright --config test/e2e/playwright.config.ts",
-    "test:e2e:debug": "wp-scripts test-playwright --config test/e2e/playwright.config.ts --ui",
+    "test:e2e": "WP_BASE_URL='http://localhost:4013' wp-scripts test-playwright --config test/e2e/playwright.config.ts",
+    "test:e2e:debug": "WP_BASE_URL='http://localhost:4013' wp-scripts test-playwright --config test/e2e/playwright.config.ts --ui",
     "test:unit": "wp-scripts test-unit-js",
     "bump-version": "npx bump package.json package-lock.json getdave-responsive-navigation-block.php readme.md -c -t",
     "wp-env": "wp-env"
@@ -25,8 +25,6 @@
   "author": "David Smith",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
-    "@playwright/test": "^1.47.2",
-    "@wordpress/e2e-test-utils-playwright": "^1.8.0",
     "@wordpress/env": "^10.8.0",
     "@wordpress/eslint-plugin": "^21.0.0",
     "@wordpress/plugins": "^7.7.0",
