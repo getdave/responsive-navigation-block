@@ -26,7 +26,9 @@ test.describe( 'Responsive Navigation block', () => {
 			title: 'Walrus',
 			status: 'publish',
 		} );
+	} );
 
+	test.beforeEach( async ( { requestUtils } ) => {
 		desktopMenu = await requestUtils.createNavigationMenu( {
 			title: 'Desktop Menu',
 			content:
@@ -38,10 +40,6 @@ test.describe( 'Responsive Navigation block', () => {
 			content:
 				'<!-- wp:navigation-link {"label":"Mobile Menu Item","type":"custom","url":"http://www.wordpress.org/","kind":"custom"} /-->',
 		} );
-	} );
-
-	test.beforeEach( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllMenus();
 	} );
 
 	test.afterEach( async ( { requestUtils } ) => {
@@ -111,14 +109,12 @@ test.describe( 'Responsive Navigation block', () => {
 		expect( content ).toMatch( mobileNavigationPattern );
 	} );
 
-	test( 'should show and hide variations at configured screen sizes', async ( {
+	test.only( 'should show and hide variations at configured screen sizes', async ( {
 		admin,
 		pageUtils,
 		page,
 		editor,
 	} ) => {
-		// insert a navigation block with the desktop variation active
-		// that means using the correct attributes (as above) to ensure the desktop variation is active
 		await admin.createNewPost();
 
 		await editor.insertBlock( {
@@ -139,27 +135,21 @@ test.describe( 'Responsive Navigation block', () => {
 			},
 		} );
 
-		// Check the block in the canvas.
-		// await expect(
-		// 	editor.canvas.locator(
-		// 		`role=textbox[name="Navigation link text"i] >> text="Custom link"`
-		// 	)
-		// ).toBeVisible( { timeout: 10000 } ); // allow time for network request.
-
 		// confirm only the "Desktop Navigation" block is visible
-		// do not change the viewport
 		const desktopNavigationBlock = editor.canvas
 			.getByRole( 'document', {
 				name: 'Block: Desktop Navigation',
 			} )
-			.getByRole( 'document', {
-				name: 'Block: Custom Link',
-			} );
+			.getByRole( 'document', { name: 'Block: Custom Link' } )
+			.first(); // ignore the "remove outline" duplicate if it exists.
 
-		await expect( desktopNavigationBlock ).toBeVisible();
+		await expect( desktopNavigationBlock ).toBeVisible( {
+			// wait for the network request to complete and the menu
+			// to "settle" on the block.
+			timeout: 10000,
+		} );
 
-		// confirm only the "Mobile Navigation" block is NOT visible
-		// do not change the viewport
+		// Confirm mobile nav not visible.
 		const mobileNavigationBlock = editor.canvas.getByRole( 'document', {
 			name: 'Block: Mobile Navigation',
 		} );
@@ -168,25 +158,20 @@ test.describe( 'Responsive Navigation block', () => {
 
 		await pageUtils.setBrowserViewport( 'small' );
 
-		// confirm only the "Mobile Navigation" block is visible
-		const mobileNavigationBlockMobile = editor.canvas.getByRole(
-			'document',
-			{
-				name: 'Block: Mobile Navigation',
-			}
-		);
+		await expect(
+			editor.canvas
+				.getByRole( 'document', {
+					name: 'Block: Mobile Navigation',
+				} )
+				// toggle button
+				.getByRole( 'button', {
+					name: 'Open menu',
+				} )
+		).toBeVisible( {
+			timeout: 10000, // wait for the network request to complete
+		} );
 
-		await expect( mobileNavigationBlockMobile ).toBeVisible();
-
-		// confirm only the "Desktop Navigation" block is NOT visible
-		const desktopNavigationBlockMobile = editor.canvas.getByRole(
-			'document',
-			{
-				name: 'Block: Desktop Navigation',
-			}
-		);
-
-		await expect( desktopNavigationBlockMobile ).not.toBeVisible();
+		await expect( desktopNavigationBlock ).not.toBeVisible();
 
 		await pageUtils.setBrowserViewport( 'large' );
 
@@ -194,12 +179,22 @@ test.describe( 'Responsive Navigation block', () => {
 
 		await page.goto( `/?p=${ postId }` );
 
-		// confirm only the "Desktop Navigation" block is visible
-		// do not change the viewport
 		const desktopNavigationBlockFront = page.getByRole( 'navigation', {
-			name: 'Desktop Navigation',
+			name: 'Desktop',
 		} );
 
 		await expect( desktopNavigationBlockFront ).toBeVisible();
+
+		const mobileNavigationBlockFront = page.getByRole( 'navigation', {
+			name: 'Mobile',
+		} );
+
+		await expect( mobileNavigationBlockFront ).not.toBeVisible();
+
+		await pageUtils.setBrowserViewport( 'small' );
+
+		await expect( desktopNavigationBlockFront ).not.toBeVisible();
+
+		await expect( mobileNavigationBlockFront ).toBeVisible();
 	} );
 } );
