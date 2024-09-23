@@ -2,9 +2,16 @@
 /.git
 /.github
 /node_modules
+/src
 
 .distignore
+.editorconfig
+.eslintignore
+.eslintrc
+.gitattributes
 .gitignore
 .prettierignore
-.eslintignore
-.editorconfig
+.prettierrc.js
+package-lock.json
+package.json
+phpcs.xml
