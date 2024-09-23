@@ -1,0 +1,6 @@
+{
+    "core": null,
+    "plugins": [ "." ],
+    "port": 4012,
+    "testsPort": 4013
+}

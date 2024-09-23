@@ -12,6 +12,7 @@
 .gitignore
 .prettierignore
 .prettierrc.js
+.wp-env.override.json
 package-lock.json
 package.json
 phpcs.xml
