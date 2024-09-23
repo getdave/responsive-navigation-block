@@ -12,20 +12,6 @@ test.describe( 'Responsive Navigation block', () => {
 
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin( PLUGIN_SLUG );
-
-		// We need pages to be published so the Link Control can return pages
-		await requestUtils.createPage( {
-			title: 'Cat',
-			status: 'publish',
-		} );
-		await requestUtils.createPage( {
-			title: 'Dog',
-			status: 'publish',
-		} );
-		await requestUtils.createPage( {
-			title: 'Walrus',
-			status: 'publish',
-		} );
 	} );
 
 	test.beforeEach( async ( { requestUtils } ) => {
@@ -55,7 +41,7 @@ test.describe( 'Responsive Navigation block', () => {
 		await requestUtils.deactivatePlugin( PLUGIN_SLUG );
 	} );
 
-	test( 'should be able to use the block insertion UI to insert "Desktop Navigation" and "Mobile Navigation" variations of the Navigation block', async ( {
+	test( 'exposes "Desktop Navigation" and "Mobile Navigation" variations of the Navigation block', async ( {
 		admin,
 		page,
 		editor,
@@ -109,7 +95,7 @@ test.describe( 'Responsive Navigation block', () => {
 		expect( content ).toMatch( mobileNavigationPattern );
 	} );
 
-	test.only( 'should show and hide variations at configured screen sizes', async ( {
+	test( 'shows and hide variations at configured screen sizes', async ( {
 		admin,
 		pageUtils,
 		page,
@@ -135,7 +121,6 @@ test.describe( 'Responsive Navigation block', () => {
 			},
 		} );
 
-		// confirm only the "Desktop Navigation" block is visible
 		const desktopNavigationBlock = editor.canvas
 			.getByRole( 'document', {
 				name: 'Block: Desktop Navigation',
@@ -149,7 +134,6 @@ test.describe( 'Responsive Navigation block', () => {
 			timeout: 10000,
 		} );
 
-		// Confirm mobile nav not visible.
 		const mobileNavigationBlock = editor.canvas.getByRole( 'document', {
 			name: 'Block: Mobile Navigation',
 		} );
@@ -163,7 +147,7 @@ test.describe( 'Responsive Navigation block', () => {
 				.getByRole( 'document', {
 					name: 'Block: Mobile Navigation',
 				} )
-				// toggle button
+				// "hamburger" toggle button
 				.getByRole( 'button', {
 					name: 'Open menu',
 				} )
@@ -175,6 +159,7 @@ test.describe( 'Responsive Navigation block', () => {
 
 		await pageUtils.setBrowserViewport( 'large' );
 
+		// Front of site.
 		const postId = await editor.publishPost();
 
 		await page.goto( `/?p=${ postId }` );
@@ -196,5 +181,66 @@ test.describe( 'Responsive Navigation block', () => {
 		await expect( desktopNavigationBlockFront ).not.toBeVisible();
 
 		await expect( mobileNavigationBlockFront ).toBeVisible();
+	} );
+
+	test( 'toggles editor device type (screen size emulation) when selecting the respective block variations', async ( {
+		admin,
+		page,
+		editor,
+	} ) => {
+		await admin.createNewPost();
+
+		await editor.insertBlock( {
+			name: 'core/navigation',
+			attributes: {
+				ref: mobileMenu.id,
+				overlayMenu: 'always',
+				className: 'getdave-responsive-navigation-block-is-mobile',
+			},
+		} );
+
+		await editor.insertBlock( {
+			name: 'core/navigation',
+			attributes: {
+				ref: desktopMenu.id,
+				overlayMenu: 'never',
+				className: 'getdave-responsive-navigation-block-is-desktop',
+			},
+		} );
+
+		// Toggle the "List View"
+		await page
+			.getByRole( 'region', { name: 'Editor top bar' } )
+			.getByRole( 'button', { name: 'Document overview' } )
+			.click();
+
+		// Select the "Mobile Navigation" block variation.
+		await page
+			.getByRole( 'region', { name: 'Document Overview' } )
+			.getByRole( 'tabpanel', { name: 'List View' } )
+			.getByRole( 'link', { name: 'Mobile Navigation' } )
+			.click();
+
+		// Unfortunately it's not possible to determine the device type
+		// via the UI in a perceivable way, so we'll have to rely on the
+		// data store.
+		expect(
+			await page.evaluate( () =>
+				wp.data.select( 'core/editor' ).getDeviceType()
+			)
+		).toBe( 'Mobile' );
+
+		// Select the "Desktop Navigation" block variation.
+		await page
+			.getByRole( 'region', { name: 'Document Overview' } )
+			.getByRole( 'tabpanel', { name: 'List View' } )
+			.getByRole( 'link', { name: 'Desktop Navigation' } )
+			.click();
+
+		expect(
+			await page.evaluate( () =>
+				wp.data.select( 'core/editor' ).getDeviceType()
+			)
+		).toBe( 'Desktop' );
 	} );
 } );
