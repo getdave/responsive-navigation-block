@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Responsive Navigation Block - control your menus based on screen size.
+ * Plugin Name:       Responsive Navigation Block
  * Description:       Allows you to show different navigation menus based on the screen size using the Navigation block.
  * Requires at least: 6.5
  * Version:           1.0.2
@@ -108,7 +108,7 @@ function generate_block_breakpoints_css( $breakpoint, $unit ) {
 	$breakpoint = absint( $breakpoint );
 	$unit       = sanitize_text_field( $unit );
 
-    return '
+	return '
         @media (min-width: ' . esc_attr( $breakpoint ) . esc_attr( $unit ) . ') {
             .wp-block-navigation.' . esc_attr( GDRNB_MOBILE_NAV_CLASS ) . ' {
                 display: none;
