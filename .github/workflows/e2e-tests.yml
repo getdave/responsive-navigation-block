@@ -15,14 +15,11 @@ concurrency:
 
 jobs:
     e2e-playwright:
-        name: Playwright - ${{ matrix.part }}
+        name: Playwright
         runs-on: ubuntu-latest
         if: ${{ github.repository == 'getdave/responsive-navigation-block' || github.event_name == 'pull_request' }}
         strategy:
             fail-fast: false
-            matrix:
-                part: [1, 2, 3, 4, 5, 6, 7, 8]
-                totalParts: [8]
 
         steps:
             - uses: actions/checkout@master
@@ -44,12 +41,12 @@ jobs:
               env:
                   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
               run: |
-                  xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test:e2e -- --shard=${{ matrix.part }}/${{ matrix.totalParts }}
+                  xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test:e2e
 
             - name: Archive debug artifacts (screenshots, traces)
               uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
               if: ${{ !cancelled() }}
               with:
-                  name: failures-artifacts--${{ matrix.part }}
+                  name: failures-artifacts
                   path: artifacts/test-results
                   if-no-files-found: ignore
