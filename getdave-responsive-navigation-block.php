@@ -117,7 +117,7 @@ function generate_block_breakpoints_css( $breakpoint, $unit ) {
 
         @media (max-width: calc(' . esc_attr( $breakpoint ) . esc_attr( $unit ) . ' - 1px)) {
             .wp-block-navigation.' . esc_attr( GDRNB_DESKTOP_NAV_CLASS ) . ' {
-                display: flex;
+                display: none;
             }
         }
     ';
