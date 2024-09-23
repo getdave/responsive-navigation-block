@@ -16,6 +16,7 @@ jobs:
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
       with:
+        generate-zip: true
         dry-run: true # set to false to deploy
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
