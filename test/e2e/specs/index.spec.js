@@ -75,18 +75,39 @@ test.describe( 'Responsive Navigation block', () => {
 			} )
 			.fill( 'Desktop Navigation' );
 
-		await expect(
-			page
-				.getByRole( 'listbox', { name: 'Blocks' } )
-				.getByRole( 'option', { name: 'Desktop Navigation' } )
-		).toBeVisible();
+		const desktopNavigationVariation = page
+			.getByRole( 'listbox', { name: 'Blocks' } )
+			.getByRole( 'option', { name: 'Desktop Navigation' } );
+
+		await expect( desktopNavigationVariation ).toBeVisible();
+
+		await desktopNavigationVariation.click();
+
+		await page
+			.getByRole( 'region', { name: 'Block Library' } )
+			.getByRole( 'searchbox', {
+				name: 'Search for blocks and patterns',
+			} )
+			.fill( 'Mobile Navigation' );
+
+		const mobileNavigationVariation = page
+			.getByRole( 'listbox', { name: 'Blocks' } )
+			.getByRole( 'option', { name: 'Mobile Navigation' } );
+
+		await expect( mobileNavigationVariation ).toBeVisible();
+
+		await mobileNavigationVariation.click();
 
 		// Check the markup of the block is correct.
 		await editor.publishPost();
 		const content = await editor.getEditedPostContent();
 
-		expect( content ).toMatch(
-			/<!-- wp:navigation {"className": "getdave-responsive-navigation-block-is-desktop", "ref":\d+} \/-->/
-		);
+		const desktopNavigationPattern =
+			/<!-- wp:navigation \{"ref":\d+,"overlayMenu":"never","className":"getdave-responsive-navigation-block-is-desktop"\} \/-->/;
+		const mobileNavigationPattern =
+			/<!-- wp:navigation \{"ref":\d+,"overlayMenu":"always","className":"getdave-responsive-navigation-block-is-mobile"\} \/-->/;
+
+		expect( content ).toMatch( desktopNavigationPattern );
+		expect( content ).toMatch( mobileNavigationPattern );
 	} );
 } );
