@@ -28,9 +28,9 @@ jobs:
             - uses: actions/checkout@master
 
             - name: Build # Remove or modify this step as needed
-            run: |
-              npm install
-              npm run build
+              run: |
+                  npm install
+                  npm run build
 
             - name: Install Playwright dependencies
               run: |
