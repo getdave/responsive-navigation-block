@@ -110,4 +110,96 @@ test.describe( 'Responsive Navigation block', () => {
 		expect( content ).toMatch( desktopNavigationPattern );
 		expect( content ).toMatch( mobileNavigationPattern );
 	} );
+
+	test( 'should show and hide variations at configured screen sizes', async ( {
+		admin,
+		pageUtils,
+		page,
+		editor,
+	} ) => {
+		// insert a navigation block with the desktop variation active
+		// that means using the correct attributes (as above) to ensure the desktop variation is active
+		await admin.createNewPost();
+
+		await editor.insertBlock( {
+			name: 'core/navigation',
+			attributes: {
+				ref: mobileMenu.id,
+				overlayMenu: 'always',
+				className: 'getdave-responsive-navigation-block-is-mobile',
+			},
+		} );
+
+		await editor.insertBlock( {
+			name: 'core/navigation',
+			attributes: {
+				ref: desktopMenu.id,
+				overlayMenu: 'never',
+				className: 'getdave-responsive-navigation-block-is-desktop',
+			},
+		} );
+
+		// Check the block in the canvas.
+		// await expect(
+		// 	editor.canvas.locator(
+		// 		`role=textbox[name="Navigation link text"i] >> text="Custom link"`
+		// 	)
+		// ).toBeVisible( { timeout: 10000 } ); // allow time for network request.
+
+		// confirm only the "Desktop Navigation" block is visible
+		// do not change the viewport
+		const desktopNavigationBlock = editor.canvas
+			.getByRole( 'document', {
+				name: 'Block: Desktop Navigation',
+			} )
+			.getByRole( 'document', {
+				name: 'Block: Custom Link',
+			} );
+
+		await expect( desktopNavigationBlock ).toBeVisible();
+
+		// confirm only the "Mobile Navigation" block is NOT visible
+		// do not change the viewport
+		const mobileNavigationBlock = editor.canvas.getByRole( 'document', {
+			name: 'Block: Mobile Navigation',
+		} );
+
+		await expect( mobileNavigationBlock ).not.toBeVisible();
+
+		await pageUtils.setBrowserViewport( 'small' );
+
+		// confirm only the "Mobile Navigation" block is visible
+		const mobileNavigationBlockMobile = editor.canvas.getByRole(
+			'document',
+			{
+				name: 'Block: Mobile Navigation',
+			}
+		);
+
+		await expect( mobileNavigationBlockMobile ).toBeVisible();
+
+		// confirm only the "Desktop Navigation" block is NOT visible
+		const desktopNavigationBlockMobile = editor.canvas.getByRole(
+			'document',
+			{
+				name: 'Block: Desktop Navigation',
+			}
+		);
+
+		await expect( desktopNavigationBlockMobile ).not.toBeVisible();
+
+		await pageUtils.setBrowserViewport( 'large' );
+
+		const postId = await editor.publishPost();
+
+		await page.goto( `/?p=${ postId }` );
+
+		// confirm only the "Desktop Navigation" block is visible
+		// do not change the viewport
+		const desktopNavigationBlockFront = page.getByRole( 'navigation', {
+			name: 'Desktop Navigation',
+		} );
+
+		await expect( desktopNavigationBlockFront ).toBeVisible();
+	} );
 } );
