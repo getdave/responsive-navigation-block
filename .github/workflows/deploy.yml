@@ -25,6 +25,6 @@ jobs:
     - name: Create GitHub release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{github.workspace}}/${{ github.event.repository.name }}.zip
+        files: ${{github.workspace}}/getdave-responsive-navigation-block.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
