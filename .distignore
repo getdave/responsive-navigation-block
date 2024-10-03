@@ -3,6 +3,7 @@
 /.github
 /node_modules
 /src
+/test
 
 .distignore
 .editorconfig
