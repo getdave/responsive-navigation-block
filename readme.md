@@ -1,6 +1,6 @@
 # Responsive Navigation Block
 
--   Stable tag: 1.0.2
+-   Stable tag: 1.0.3
 -   Tested up to: 6.6
 -   License: GPL-2.0-or-later
 -   Tags: navigation, menus, responsive, blocks
@@ -119,6 +119,6 @@ Releasing the Plugin is the prerogative of the Plugin owner (@get_dave). The pro
 
 ## Changelog
 
-### 1.0.2
+### 1.0.3
 
 Initial version.
