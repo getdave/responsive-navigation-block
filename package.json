@@ -1,6 +1,6 @@
 {
   "name": "getdave-responsive-navigation-block",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Show different navigation menus based on the screen size using the Navigation block.",
   "main": "index.js",
   "scripts": {
