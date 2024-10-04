@@ -3,7 +3,7 @@
  * Plugin Name:       Responsive Navigation Block
  * Description:       Allows you to show different navigation menus based on the screen size using the Navigation block.
  * Requires at least: 6.5
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            Dave Smith
  * Author URI:        https://aheadcreative.co.uk
  * Plugin URI:        https://github.com/getdave/responsive-navigation-block
