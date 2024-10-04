@@ -19,6 +19,9 @@ This Plugin allows you to display and apply alternative styling to different nav
 
 ### Features
 
+-   Two new Navigation Block (variations) for:
+    -   Mobile
+    -   Desktop
 -   Style your menu differently depending on screen size.
 -   Use a different menu for each screen size.
 -   Customize the "breakpoint" (where you switch between mobile and desktop).
@@ -26,9 +29,12 @@ This Plugin allows you to display and apply alternative styling to different nav
 
 ### Usage
 
-This Plugin creates two block variations from the Navigation block which will be automatically hidden/shown at the configured breakpoint (screensize)
+This Plugin creates two block variations from the Navigation block which will be **automatically hidden/shown at the configured screensize** (breakpoint):
 
-This affords the ability to independently style mobile vs desktop navigation and even allows for completely different menus to be used.
+-   Navigation (Mobile) - will be displayed only on smaller screen sizes.
+-   Navigation (Desktop) - will be displayed only on larger screen sizes.
+
+This affords the ability to **independently style mobile vs desktop navigation** and even allows for **completely different menus** to be used.
 
 The Plugin should be used as follows:
 
