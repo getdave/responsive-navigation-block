@@ -131,9 +131,3 @@ Releasing the Plugin to the WordPress.org Plugin repo is the prerogative of the 
 -   Bump Plugin version and tag release - `npm run bump-version`.
 -   Push trunk and tags - `git push origin trunk --tags`
 -   Deployment to WP.org will be handled automatically.
-
-## Changelog
-
-### 1.0.7
-
-Initial version.
