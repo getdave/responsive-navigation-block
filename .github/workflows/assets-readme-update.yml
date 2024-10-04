@@ -8,6 +8,7 @@ env:
   SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
   SLUG: getdave-responsive-navigation-block
   README_NAME: "readme.md"
+  IGNORE_OTHER_FILES: true # only copy README file and .wordpress-org directory
 jobs:
   trunk:
     name: Push to trunk
