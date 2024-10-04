@@ -125,7 +125,7 @@ Releasing the Plugin to the WordPress.org Plugin repo is the prerogative of the 
     -   When action completes download the generated Plugin zip artifact.
     -   Manually install and test the .zip.
 
-#### Deploy
+#### Deploy to WP.org
 
 -   When ready to deploy.
 -   Bump Plugin version and tag release - `npm run bump-version`.
