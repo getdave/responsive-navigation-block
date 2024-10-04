@@ -9,7 +9,7 @@ env:
   SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
   SLUG: getdave-responsive-navigation-block # optional, remove if GitHub repo name matches SVN slug, including capitalization
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  VERSION: "v1.0.5"
+  VERSION: "deploy-test" # remove after debug complete
 jobs:
   tag:
     name: New tag
@@ -29,3 +29,4 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ${{github.workspace}}/${{ env.SLUG }}.zip
+        tag_name: ${{ env.VERSION }}
