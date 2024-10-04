@@ -83,7 +83,7 @@ Due to complications with the way the default WordPress Navigation block works y
     -   text color - `Styles -> Color -> Submenu & overlay text`.
 -   Mobile menu toggle button ("hamburger"):
     -   icon color - `Styles -> Color -> Text`.
-    -   background color - `Styles -> Color -> Text`.
+    -   background color - `Styles -> Color -> Background`.
 
 Styles for Desktop Navigation can be applied using the standard controls.
 
@@ -112,10 +112,25 @@ To run the tests - in your terminal of choice:
 
 ### Releasing
 
-Releasing the Plugin is the prerogative of the Plugin owner (@get_dave). The process is as follows:
+Releasing the Plugin to the WordPress.org Plugin repo is the prerogative of the Plugin owner (@get_dave). The process is as follows:
+
+#### Test the Plugin
 
 -   Commit all changes to `trunk` branch.
--   TBC
+-   Push changes to `trunk` (only) - `git push origin trunk`.
+-   In Github:
+    -   Actions
+    -   Select the [`Build Release Zip` action](https://github.com/getdave/responsive-navigation-block/actions/workflows/build-release-zip.yml).
+    -   Select the `Run workflow` dropdown and run the workflow to generate a zip file.
+    -   When action completes download the generated Plugin zip artifact.
+    -   Manually install and test the .zip.
+
+#### Deploy
+
+-   When ready to deploy.
+-   Bump Plugin version and tag release - `npm run bump-version`.
+-   Push trunk and tags - `git push origin trunk --tags`
+-   Deployment to WP.org will be handled automatically.
 
 ## Changelog
 
