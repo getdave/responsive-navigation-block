@@ -3,8 +3,8 @@
 -   Stable tag: 1.0.7
 -   Tested up to: 6.6
 -   License: GPL-2.0-or-later
--   Tags: navigation, menus, responsive, blocks
--   Contributors: [get_dave](https://profiles.wordpress.org/get_dave/)
+-   Tags: navigation, menus, responsive, blocks, mobile
+-   Contributors: get_dave
 -   Source code: https://github.com/getdave/responsive-navigation-block
 
 ![](.wordpress-org/banner-1544x500.png)
