@@ -1,15 +1,14 @@
 name: Deploy to WordPress.org
 on:
-  workflow_dispatch:
   push:
     tags:
     - "*"
 env:
   SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
   SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-  SLUG: getdave-responsive-navigation-block # optional, remove if GitHub repo name matches SVN slug, including capitalization
+  SLUG: getdave-responsive-navigation-block
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  VERSION: "deploy-test" # remove after debug complete
+  #VERSION: "deploy-test" # debugging only
 jobs:
   tag:
     name: New tag
@@ -24,9 +23,9 @@ jobs:
       uses: 10up/action-wordpress-plugin-deploy@stable
       with:
         generate-zip: true
-        dry-run: true # set to false to deploy
+        dry-run: false # set to false to deploy
     - name: Create GitHub release
       uses: softprops/action-gh-release@v1
       with:
         files: ${{github.workspace}}/${{ env.SLUG }}.zip
-        tag_name: ${{ env.VERSION }}
+        #tag_name: ${{ env.VERSION }} # debugging only
