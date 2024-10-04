@@ -8,7 +8,7 @@
 			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "wordpress.org/plugins",
-				"slug": "responsive-navigation-block"
+				"slug": "getdave-responsive-navigation-block"
 			},
 			"options": {
 				"activate": true
