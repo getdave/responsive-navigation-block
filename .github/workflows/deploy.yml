@@ -1,8 +1,14 @@
 name: Deploy to WordPress.org
 on:
+  workflow_dispatch:
   push:
     tags:
     - "*"
+env:
+  SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+  SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+  SLUG: getdave-responsive-navigation-block # optional, remove if GitHub repo name matches SVN slug, including capitalization
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   tag:
     name: New tag
@@ -18,13 +24,7 @@ jobs:
       with:
         generate-zip: true
         dry-run: true # set to false to deploy
-      env:
-        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-        SLUG: getdave-responsive-navigation-block # optional, remove if GitHub repo name matches SVN slug, including capitalization
     - name: Create GitHub release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{github.workspace}}/getdave-responsive-navigation-block.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        files: ${{github.workspace}}/${{ env.SLUG }}.zip
