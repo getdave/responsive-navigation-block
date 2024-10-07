@@ -17,6 +17,7 @@ registerBlockVariation( 'core/navigation', {
 		'Navigation block preconfigured for larger viewports.',
 		'getdave-responsive-navigation-block'
 	),
+	scope: [ 'block', 'inserter', 'transform' ],
 	attributes: {
 		overlayMenu: 'never',
 		className: desktopClassName,
@@ -36,6 +37,7 @@ registerBlockVariation( 'core/navigation', {
 		'Navigation block preconfigured for smaller viewports.',
 		'getdave-responsive-navigation-block'
 	),
+	scope: [ 'block', 'inserter', 'transform' ],
 	attributes: {
 		overlayMenu: 'always',
 		className: mobileClassName,
