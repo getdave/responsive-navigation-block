@@ -44,6 +44,8 @@ The Plugin should be used as follows:
 -   Add the "Mobile Navigation" block - style and configure the menu for "mobile" as required.
 -   View the front of your website and resize your browser to see the navigations swap out at the appropriate breakpoint/screensize.
 
+Alternatively you can transform the default Navigation block to either `Mobile` or `Desktop` variations via the block's interface.
+
 ### Support
 
 Please see FAQs. If you still have an issue please:
