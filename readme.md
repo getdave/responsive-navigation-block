@@ -17,6 +17,10 @@ This Plugin allows you to display and apply alternative styling to different nav
 
 [![Active Installs](https://img.shields.io/wordpress/plugin/installs/getdave-responsive-navigation-block?logo=wordpress&logoColor=%23fff&label=Active%20Installs&labelColor=%2323282D&color=%2323282D)](https://wordpress.org/plugins/getdave-responsive-navigation-block/) [![Playground Demo Link](https://img.shields.io/wordpress/plugin/v/getdave-responsive-navigation-block?logo=wordpress&logoColor=%23fff&label=Playground%20Demo&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/getdave/responsive-navigation-block/refs/heads/trunk/.wordpress-org/blueprints/blueprint.json)
 
+### Video Walkthrough
+
+[youtube https://www.youtube.com/watch?v=R5kzAaEsDMg]
+
 ### Features
 
 -   Two new Navigation Block (variations) for:
