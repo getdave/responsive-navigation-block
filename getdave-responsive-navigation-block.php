@@ -135,6 +135,7 @@ function enqueue_block_assets() {
 	wp_add_inline_style( GDRNB_PLUGIN_SLUG . '-style', $css );
 }
 
+
 function add_settings_page() {
 	add_options_page(
 		__( 'Responsive Navigation Block Settings', 'getdave-responsive-navigation-block' ), // Page title
@@ -151,7 +152,7 @@ function settings_page_callback() {
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<form action="options.php" method="post">
 			<?php
-			settings_fields( 'reading' );
+			settings_fields( GDRNB_PLUGIN_SLUG . '_responsive_nav' ); // Use your custom settings group
 			do_settings_sections( GDRNB_PLUGIN_SLUG . '_responsive_nav' );
 			submit_button( __( 'Save Settings', 'getdave-responsive-navigation-block' ) );
 			?>
@@ -162,22 +163,22 @@ function settings_page_callback() {
 
 function register_settings() {
 	register_setting(
-		'reading',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav', // Custom settings group
 		GDRNB_PLUGIN_SLUG . '_responsive_nav_breakpoint',
 		array(
 			'type'              => 'integer',
-			'description'       => __( 'The breakpoint at which the navigation will switch to mobile view', 'getdave-responsive-navigation-block' ),
+			'description'       => __( 'The breakpoint value at which the navigation will switch.', 'getdave-responsive-navigation-block' ),
 			'sanitize_callback' => 'absint',
 			'default'           => GDRNB_DEFAULT_BREAKPOINT,
 		)
 	);
 
 	register_setting(
-		'reading',
+		GDRNB_PLUGIN_SLUG . '_responsive_nav', // Custom settings group
 		GDRNB_PLUGIN_SLUG . '_responsive_nav_unit',
 		array(
 			'type'              => 'string',
-			'description'       => __( 'The unit of the navigation breakpoint', 'getdave-responsive-navigation-block' ),
+			'description'       => __( 'The unit used for the breakpoint.', 'getdave-responsive-navigation-block' ),
 			'sanitize_callback' => 'sanitize_text_field',
 			'default'           => GDRNB_DEFAULT_UNIT,
 		)
@@ -206,6 +207,7 @@ function register_settings() {
 		GDRNB_PLUGIN_SLUG . '_responsive_nav_settings_section'
 	);
 }
+
 
 function settings_section_callback() {
 	echo '<p>' . esc_html__( 'Set the breakpoint and unit at which the special Navigation block variations "Desktop Navigation" and "Mobile Navigation" will switch.', 'getdave-responsive-navigation-block' ) . '</p>';
