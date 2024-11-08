@@ -35,7 +35,10 @@ jobs:
 
             - name: Install WordPress and start the server
               run: |
-                  ./node_modules/@wp-playground/cli/wp-playground.js server --blueprint=test/e2e/config/blueprint.json --port=4013 --reset
+                  echo "::group::Start Playground server"
+                  ./node_modules/@wp-playground/cli/wp-playground.js server --blueprint=test/e2e/config/blueprint.json --port=4013 --reset &
+                  echo "::endgroup::"
+              shell: bash
 
             - name: Run the tests
               env:
