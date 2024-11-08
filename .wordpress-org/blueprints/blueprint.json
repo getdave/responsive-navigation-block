@@ -5,15 +5,15 @@
 			"step": "login"
 		},
 		{
-			"step": "installPlugin",
-			"pluginZipFile": {
-				"resource": "wordpress.org/plugins",
-				"slug": "getdave-responsive-navigation-block"
-			},
-			"options": {
-				"activate": true
-			}
-		}
+            "step": "installPlugin",
+            "pluginData": {
+                "resource": "wordpress.org/plugins",
+                "slug": "getdave-responsive-navigation-block"
+            },
+            "options": {
+                "activate": true
+            }
+        }
 	],
 	"landingPage": "/wp-admin/site-editor.php?canvas=edit"
 }
