@@ -20,7 +20,8 @@
     "test:e2e:debug": "WP_BASE_URL='http://localhost:4013' wp-scripts test-playwright --config test/e2e/playwright.config.ts --ui",
     "test:unit": "wp-scripts test-unit-js",
     "bump-version": "npx bump package.json package-lock.json getdave-responsive-navigation-block.php readme.md -c -t",
-    "wp-env": "wp-env"
+    "wp-env": "wp-env",
+    "test:server": "./node_modules/@wp-playground/cli/wp-playground.js server --blueprint=test/e2e/config/blueprint.json --port=4013 --reset"
   },
   "author": "David Smith",
   "license": "GPL-2.0-or-later",
@@ -30,6 +31,7 @@
     "@wordpress/plugins": "^7.7.0",
     "@wordpress/prettier-config": "^4.7.0",
     "@wordpress/scripts": "^29.0.0",
+    "@wp-playground/cli": "^1.0.10",
     "version-bump-prompt": "^6.1.0"
   },
   "dependencies": {
