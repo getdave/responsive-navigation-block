@@ -48,14 +48,12 @@ test.describe( 'Responsive Navigation block', () => {
 	} ) => {
 		await admin.createNewPost();
 
-		await page
-			.getByRole( 'button', { name: 'Toggle block inserter' } )
-			.click();
+		await page.getByRole( 'button', { name: 'Block inserter' } ).click();
 
 		await page
 			.getByRole( 'region', { name: 'Block Library' } )
 			.getByRole( 'searchbox', {
-				name: 'Search for blocks and patterns',
+				name: 'Search',
 			} )
 			.fill( 'Desktop Navigation' );
 
@@ -70,7 +68,7 @@ test.describe( 'Responsive Navigation block', () => {
 		await page
 			.getByRole( 'region', { name: 'Block Library' } )
 			.getByRole( 'searchbox', {
-				name: 'Search for blocks and patterns',
+				name: 'Search',
 			} )
 			.fill( 'Mobile Navigation' );
 
@@ -218,7 +216,7 @@ test.describe( 'Responsive Navigation block', () => {
 		await page
 			.getByRole( 'region', { name: 'Document Overview' } )
 			.getByRole( 'tabpanel', { name: 'List View' } )
-			.getByRole( 'link', { name: 'Mobile Navigation' } )
+			.getByRole( 'link', { name: 'Mobile' } )
 			.click();
 
 		// Unfortunately it's not possible to determine the device type
@@ -234,7 +232,7 @@ test.describe( 'Responsive Navigation block', () => {
 		await page
 			.getByRole( 'region', { name: 'Document Overview' } )
 			.getByRole( 'tabpanel', { name: 'List View' } )
-			.getByRole( 'link', { name: 'Desktop Navigation' } )
+			.getByRole( 'link', { name: 'Desktop Menu' } )
 			.click();
 
 		expect(
