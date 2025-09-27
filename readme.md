@@ -1,7 +1,7 @@
 # Responsive Navigation Block
 
 -   Stable tag: 1.0.9
--   Tested up to: 6.6
+-   Tested up to: 6.8.2
 -   License: GPL-2.0-or-later
 -   Tags: navigation, menus, responsive, blocks, mobile
 -   Contributors: get_dave
